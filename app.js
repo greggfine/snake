@@ -9,9 +9,26 @@ let food = { x: 10, y: 10 };
 let direction = "right";
 let score = 0;
 let roundNumber = 1;
+let level = "slow";
+const scoreElem = document.getElementById("score");
+const currentScaleElem = document.getElementById("current-scale");
+// const levelSelectorElem = document.getElementById("level-selector");
+const slowRadio = document.getElementById("slow");
+const fastRadio = document.getElementById("fast");
 
 let gameInterval;
 const audioCTX = new AudioContext();
+const audioNodes = []; // Keep track of all audio nodes
+const correctAnswerSound = new Audio("audio/correctAnswer.wav");
+const wrongAnswerSound = new Audio("audio/wrongAnswer.wav");
+
+slowRadio.addEventListener("change", (e) => {
+  level = e.target.value;
+});
+
+fastRadio.addEventListener("change", (e) => {
+  level = e.target.value;
+});
 
 // Add a listener for the keydown event on the document object
 document.addEventListener(
@@ -31,7 +48,7 @@ document.addEventListener(
   { once: true }
 );
 function startGame() {
-  gameInterval = setInterval(gameLoop, 100);
+  gameInterval = setInterval(gameLoop, level === "fast" ? 100 : 200);
   if (ctx.state === "suspended") {
     ctx.resume();
   }
@@ -39,6 +56,7 @@ function startGame() {
   droneOsc.frequency.value = 130.81;
   droneOsc.start();
   droneOsc.connect(audioCTX.destination);
+  audioNodes.push(droneOsc); // Add the audio node to the array
 }
 
 function checkFoodCollision() {
@@ -55,6 +73,7 @@ function checkFoodCollision() {
     osc.connect(gainNode);
     gainNode.connect(audioCTX.destination);
     console.log(food.noteName);
+    audioNodes.push(osc); // Add the audio node to the array
     if (
       cMajorNotes.find((obj) => {
         return obj.note === food.noteName;
@@ -78,6 +97,7 @@ function gameLoop() {
   // Update snake position and check for collisions
   const newPosition = calculateNewPosition();
   if (checkCollisions(newPosition)) {
+    wrongAnswerSound.play();
     endGame();
     return;
   }
@@ -98,7 +118,8 @@ function gameLoop() {
 
 // Event listener for Escape key
 document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape" && food.color === "red") {
+  console.log(event.key);
+  if (event.key === "Meta" && food.color === "red") {
     generateFood();
   }
 });
@@ -180,7 +201,9 @@ function drawFood() {
   );
   ctx.fillText(
     food.noteName,
+    // (food.x + 0.5) * cellSize,
     (food.x + 0.5) * cellSize,
+    // (food.y + 0.5) * cellSize
     (food.y + 0.5) * cellSize
   );
 }
@@ -188,7 +211,8 @@ function drawFood() {
 function drawScore() {
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText(`Score: ${score}`, 10, canvas.height - 10);
+  // ctx.fillText(`Score: ${score}`, 10, canvas.height - 10);
+  scoreElem.textContent = score;
 }
 
 function updateScore(state) {
@@ -226,6 +250,9 @@ function generateFood() {
 }
 
 function endGame() {
+  audioNodes.forEach((node) => {
+    node.stop();
+  });
   // Display game over message and stop game loop
   clearInterval(gameInterval);
   ctx.fillStyle = "white";

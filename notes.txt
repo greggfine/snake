@@ -26,7 +26,5 @@ Modes: on each round, a random mode should be given or
 
 NICETIES:
 
-Put in a sound effect for when the snake hits the wall.
-Escape key: should this be on a closer key like "Command"?
 
 
