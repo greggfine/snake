@@ -2,8 +2,6 @@ TODO:
 
 IMPORTANT:
 
-*** When game ends, all sound should stop.
-*** We should display the root node and mode that is currently in play.
 *** When a wrong note is hit, it should turn red or
     we should get some visual indication of being wrong.
     Vice versa for when a correct note is hit.

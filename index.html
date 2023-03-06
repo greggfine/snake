@@ -9,23 +9,27 @@
     <script src="app.js" defer></script>
   </head>
   <body>
-    <h1>MODAL SNAKE</h1>
-    <div>
-      Score: <span id="score"></span>
-      <br />
-      <br />
-
-      <label for="level-selector">Select a level:</label>
-      <label for="slow">Slow</label>
-      <input type="radio" name="level" id="slow" value="slow" />
-      <label for="fast">Fast</label>
-      <input type="radio" name="level" id="fast" value="fast" />
-
-      <p>Current Scale: <span id="current-scale">C Major</span></p>
-      <p>Scale Notes: <span id="scale-notes">C D E F G A B</span></p>
+    <h1 id="game-heading">MODAL SNAKE</h1>
+    <div class="container">
+      <canvas id="canvas" width="400" height="400"></canvas>
+      <div id="data-display">
+        Score: <span id="score"></span>
+        <br />
+        <br />
+        <label for="level-selector">Select a level:</label>
+        <label for="slow">Slow</label>
+        <input type="radio" name="level" id="slow" value="slow" />
+        <label for="fast">Fast</label>
+        <input type="radio" name="level" id="fast" value="fast" />
+        <p>Current Mode: <span id="current-scale">C Ionian</span></p>
+        <label for="mode-selector">Select Mode</label>
+        <select name="mode-selector" id="mode-selector">
+          <option value="cMajorNotes">cMajorNotes</option>
+          <option value="cDorianNotes">cDorianNotes</option>
+        </select>
+        <p>Tonic Note: <span id="tonic-note">C</span></p>
+        <p>Scale Notes: <span id="scale-notes">C D E F G A B</span></p>
+      </div>
     </div>
-    <br />
-    <br />
-    <canvas id="canvas" width="400" height="400"></canvas>
   </body>
 </html>

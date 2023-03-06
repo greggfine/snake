@@ -1,7 +1,7 @@
 // Set up canvas and game board
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const cellSize = 20;
+const cellSize = 27;
 const boardWidth = canvas.width / cellSize;
 const boardHeight = canvas.height / cellSize;
 let snake = [{ x: 5, y: 5 }];
@@ -9,18 +9,33 @@ let food = { x: 10, y: 10 };
 let direction = "right";
 let score = 0;
 let roundNumber = 1;
-let level = "slow";
+let level = "fast";
+let userSelectedMode = cMajorNotes;
+let otherNotes = notCMajorNotes;
 const scoreElem = document.getElementById("score");
 const currentScaleElem = document.getElementById("current-scale");
-// const levelSelectorElem = document.getElementById("level-selector");
 const slowRadio = document.getElementById("slow");
 const fastRadio = document.getElementById("fast");
+const modeSelector = document.getElementById("mode-selector");
 
 let gameInterval;
 const audioCTX = new AudioContext();
 const audioNodes = []; // Keep track of all audio nodes
 const correctAnswerSound = new Audio("audio/correctAnswer.wav");
 const wrongAnswerSound = new Audio("audio/wrongAnswer.wav");
+
+modeSelector.addEventListener("change", (e) => {
+  selectedModeString = e.target.value;
+  if (selectedModeString === "cMajorNotes") {
+    userSelectedMode = cMajorNotes;
+    otherNotes = notCMajorNotes;
+  }
+  if (selectedModeString === "cDorianNotes") {
+    userSelectedMode = cDorianNotes;
+    otherNotes = notCDorianNotes;
+  }
+  console.log(userSelectedMode);
+});
 
 slowRadio.addEventListener("change", (e) => {
   level = e.target.value;
@@ -48,7 +63,7 @@ document.addEventListener(
   { once: true }
 );
 function startGame() {
-  gameInterval = setInterval(gameLoop, level === "fast" ? 100 : 200);
+  gameInterval = setInterval(gameLoop, level === "fast" ? 160 : 200);
   if (ctx.state === "suspended") {
     ctx.resume();
   }
@@ -60,6 +75,7 @@ function startGame() {
 }
 
 function checkFoodCollision() {
+  console.log(userSelectedMode);
   // Check if snake head is in the same position as the food
   if (snake[0].x === food.x && snake[0].y === food.y) {
     const audioCTX = new AudioContext();
@@ -72,16 +88,14 @@ function checkFoodCollision() {
     osc.stop(audioCTX.currentTime + 0.4);
     osc.connect(gainNode);
     gainNode.connect(audioCTX.destination);
-    console.log(food.noteName);
     audioNodes.push(osc); // Add the audio node to the array
     if (
-      cMajorNotes.find((obj) => {
+      userSelectedMode.find((obj) => {
         return obj.note === food.noteName;
       })
     ) {
       updateScore("increment");
     } else {
-      console.log("bad");
       if (score > 0) {
         updateScore("decrement");
       }
@@ -118,8 +132,7 @@ function gameLoop() {
 
 // Event listener for Escape key
 document.addEventListener("keydown", function (event) {
-  console.log(event.key);
-  if (event.key === "Meta" && food.color === "red") {
+  if (event.key === " " && food.color === "red") {
     generateFood();
   }
 });
@@ -176,6 +189,7 @@ function drawSnake() {
   for (let i = 0; i < boardWidth; i++) {
     for (let j = 0; j < boardHeight; j++) {
       ctx.strokeRect(i * cellSize, j * cellSize, cellSize, cellSize);
+      // ctx.textAlign = "center";
     }
   }
   for (let i = 0; i < snake.length; i++) {
@@ -199,13 +213,12 @@ function drawFood() {
     0,
     2 * Math.PI
   );
-  ctx.fillText(
-    food.noteName,
-    // (food.x + 0.5) * cellSize,
-    (food.x + 0.5) * cellSize,
-    // (food.y + 0.5) * cellSize
-    (food.y + 0.5) * cellSize
-  );
+  ctx.font = "24px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  const textX = (food.x + 0.5) * cellSize;
+  const textY = (food.y + 0.5) * cellSize;
+  ctx.fillText(food.noteName, textX, textY);
 }
 
 function drawScore() {
@@ -228,7 +241,7 @@ function generateRandNote(goodNotes, badNotes) {
   return randNote;
 }
 function generateFood() {
-  let randNote = generateRandNote(cMajorNotes, otherNotes);
+  let randNote = generateRandNote(userSelectedMode, otherNotes);
   let newPosition = { x: 0, y: 0 };
   do {
     newPosition = {
@@ -243,7 +256,7 @@ function generateFood() {
   food = {
     x: newPosition.x,
     y: newPosition.y,
-    color: cMajorNotes.includes(randNote) ? "green" : "red",
+    color: userSelectedMode.includes(randNote) ? "green" : "red",
     noteName: randNote.note,
     noteFrequency: randNote.frequency,
   };
