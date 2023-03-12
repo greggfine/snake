@@ -1,9 +1,13 @@
-// const synth = new Tone.Synth().toDestination();
-// //play a middle 'C' for the duration of an 8th note
-// synth.triggerAttackRelease("C4", "8n");
-// Set up canvas and game board
+// Get DOM Elements
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const scoreElem = document.getElementById("score");
+const currentScaleElem = document.getElementById("current-scale");
+const slowRadio = document.getElementById("slow");
+const fastRadio = document.getElementById("fast");
+const modeSelector = document.getElementById("mode-selector");
+
+// Game Variables
 const cellSize = 27;
 const boardWidth = canvas.width / cellSize;
 const boardHeight = canvas.height / cellSize;
@@ -15,22 +19,13 @@ let roundNumber = 1;
 let level = "fast";
 let userSelectedMode = cMajorNotes;
 let otherNotes = notCMajorNotes;
-const scoreElem = document.getElementById("score");
-const currentScaleElem = document.getElementById("current-scale");
-const slowRadio = document.getElementById("slow");
-const fastRadio = document.getElementById("fast");
-const modeSelector = document.getElementById("mode-selector");
-
-let attackTriggered = false;
-
 let gameInterval;
+
+// Audio Variables
 const audioCTX = new AudioContext();
-const audioNodes = []; // Keep track of all audio nodes
 const correctAnswerSound = new Audio("audio/correctAnswer.wav");
 const wrongAnswerSound = new Audio("audio/wrongAnswer.wav");
-const synth = new Tone.PolySynth();
-
-const noiseSynth = new Tone.NoiseSynth().toDestination();
+const synth = new Tone.PolySynth(Tone.Synth);
 const now = Tone.now();
 const sampler = new Tone.Sampler({
   urls: {
@@ -40,61 +35,18 @@ const sampler = new Tone.Sampler({
   release: 1,
 }).toDestination();
 
-modeSelector.addEventListener("change", (e) => {
-  selectedModeString = e.target.value;
-  if (selectedModeString === "cMajorNotes") {
-    userSelectedMode = cMajorNotes;
-    otherNotes = notCMajorNotes;
-  }
-  if (selectedModeString === "cDorianNotes") {
-    userSelectedMode = cDorianNotes;
-    otherNotes = notCDorianNotes;
-  }
-  console.log(userSelectedMode);
-});
+/* ============================================== */
 
-slowRadio.addEventListener("change", (e) => {
-  level = e.target.value;
-});
-
-fastRadio.addEventListener("change", (e) => {
-  level = e.target.value;
-});
-
-// Add a listener for the keydown event on the document object
-document.addEventListener(
-  "keydown",
-  function (event) {
-    // Check if the pressed key is an arrow key
-    if (
-      event.key === "ArrowUp" ||
-      event.key === "ArrowDown" ||
-      event.key === "ArrowLeft" ||
-      event.key === "ArrowRight"
-    ) {
-      // Start the game
-      startGame();
-    }
-  },
-  { once: true }
-);
 function startGame() {
   gameInterval = setInterval(gameLoop, level === "fast" ? 160 : 200);
   if (ctx.state === "suspended") {
     ctx.resume();
   }
-  //   const droneOsc = audioCTX.createOscillator();
-  //   droneOsc.frequency.value = 130.81;
-  //   droneOsc.start();
-  //   droneOsc.connect(audioCTX.destination);
-
-  // set the attributes across all the voices using 'set'
   synth.set({
-    detune: -1200,
     volume: -15,
     oscillator: {
-      type: "triangle",
-      count: 2,
+      type: "sawtooth",
+      count: 3,
       spread: 40,
     },
     envelope: {
@@ -105,60 +57,43 @@ function startGame() {
     },
   });
 
+  const gain = new Tone.Gain();
+
   const filter = new Tone.Filter({
     type: "lowpass",
     frequency: 1200,
     rolloff: -12,
     Q: 4,
-  }).toDestination();
-
-  // create an LFO to modulate the filter frequency
-  const lfo = new Tone.LFO({
-    frequency: 0.2, // set a slow modulation rate
-    min: 100, // minimum cutoff frequency
-    max: 3000, // maximum cutoff frequency
   });
 
-  // connect the LFO to the filter frequency
-  lfo.connect(filter.frequency);
-
-  // create an amplitude envelope with a long attack time
-  const envelope = new Tone.AmplitudeEnvelope({
-    attack: 3, // set a slow attack time
-    decay: 1,
-    sustain: 0.5,
-    release: 3,
+  const lfoFilter = new Tone.LFO({
+    frequency: 10.2,
+    min: 100,
+    max: 2000,
+  });
+  const lfoGain = new Tone.LFO({
+    frequency: 100.1,
+    min: 0,
+    max: 1,
+    amplitude: 1,
   });
 
-  // connect the synth to the filter and envelope, then connect to output
-  synth.connect(filter).connect(envelope).toDestination();
-  synth.triggerAttack(["C4", "E4", "G4"]);
-  //   synth.triggerAttack("G3", now);
-  //   synth.triggerRelease(now + 60 / 120);
-  //   synth.triggerAttack(["C4", "E4", "G4"]);
-  //   synth.triggerRelease();
-  //   console.log(synth);
-  //   synth.triggerAttackRelease(["C4", "E4", "G4"], "Infinity");
+  lfoFilter.connect(filter.frequency);
+  lfoGain.connect(gain.gain);
+  lfoFilter.start();
+  lfoGain.start();
 
-  // start the LFO to modulate the filter frequency over time
-  //   lfo.start();
-  audioNodes.push(synth); // Add the audio node to the array
-  //   audioNodes.push(droneOsc); // Add the audio node to the array
+  synth.connect(filter).connect(gain).toDestination();
+  synth.triggerAttack(["C3", "E4", "G3"]);
 }
 
 function checkFoodCollision() {
   // Check if snake head is in the same position as the food
   if (snake[0].x === food.x && snake[0].y === food.y) {
-    // const audioCTX = new AudioContext();
-    // const synth = new Tone.Synth().toDestination();
-    // synth.triggerAttackRelease(food.noteFrequency, "8n");
-
     const noteName = food.noteName;
     Tone.loaded().then(() => {
       sampler.triggerAttackRelease(`${noteName}4`, 0.5);
     });
-    // audioNodes.push(synth); // Add the audio node to the array
-    audioNodes.push(sampler); // Add the audio node to the array
     if (
       userSelectedMode.find((obj) => {
         return obj.note === food.noteName;
@@ -166,9 +101,10 @@ function checkFoodCollision() {
     ) {
       updateScore("increment");
     } else {
+      const noiseSynth = new Tone.NoiseSynth().toDestination();
+      noiseSynth.triggerAttackRelease("4n");
       if (score > 0) {
         updateScore("decrement");
-        noiseSynth.triggerAttackRelease("4n");
       }
     }
     // Increase the score, generate new food, and add a new segment to the snake
@@ -177,7 +113,6 @@ function checkFoodCollision() {
   }
 }
 
-// Main game loop
 function gameLoop() {
   // Update snake position and check for collisions
   const newPosition = calculateNewPosition();
@@ -200,13 +135,6 @@ function gameLoop() {
   drawFood();
   roundNumber++;
 }
-
-// Event listener for Escape key
-document.addEventListener("keydown", function (event) {
-  if (event.key === " " && food.color === "red") {
-    generateFood();
-  }
-});
 
 // Helper functions for generating random positions and checking collisions
 function getRandomPosition() {
@@ -260,7 +188,6 @@ function drawSnake() {
   for (let i = 0; i < boardWidth; i++) {
     for (let j = 0; j < boardHeight; j++) {
       ctx.strokeRect(i * cellSize, j * cellSize, cellSize, cellSize);
-      // ctx.textAlign = "center";
     }
   }
   for (let i = 0; i < snake.length; i++) {
@@ -295,7 +222,6 @@ function drawFood() {
 function drawScore() {
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  // ctx.fillText(`Score: ${score}`, 10, canvas.height - 10);
   scoreElem.textContent = score;
 }
 
@@ -334,21 +260,7 @@ function generateFood() {
 }
 
 function endGame() {
-  //   console.log(synth);
-  //   synth.triggerRelease(now);
-  synth.triggerRelease(["C4", "E4", "G4"]);
-  //   synth.set({
-  //     volume: -100,
-  //   });
-  //   console.log(audioNodes);
-  //   audioNodes.forEach((node) => {
-  //     console.log(node);
-  //     // node.stop();
-  //     // const now = Tone.now();
-  //     node.triggerRelease(now + 1);
-  //     // node.triggerAttackRelease();
-  //   });
-  // Display game over message and stop game loop
+  synth.triggerRelease(["C3", "E4", "G3"]);
   clearInterval(gameInterval);
   ctx.fillStyle = "white";
   ctx.font = "50px Arial";
@@ -360,6 +272,43 @@ function endGame() {
 }
 
 generateFood();
+
+// Event Listeners
+modeSelector.addEventListener("change", (e) => {
+  const selectedModeString = e.target.value;
+  if (selectedModeString === "cMajorNotes") {
+    userSelectedMode = cMajorNotes;
+    otherNotes = notCMajorNotes;
+  }
+  if (selectedModeString === "cDorianNotes") {
+    userSelectedMode = cDorianNotes;
+    otherNotes = notCDorianNotes;
+  }
+});
+
+slowRadio.addEventListener("change", (e) => {
+  level = e.target.value;
+});
+
+fastRadio.addEventListener("change", (e) => {
+  level = e.target.value;
+});
+
+document.addEventListener(
+  "keydown",
+  function (event) {
+    if (
+      event.key === "ArrowUp" ||
+      event.key === "ArrowDown" ||
+      event.key === "ArrowLeft" ||
+      event.key === "ArrowRight"
+    ) {
+      startGame();
+    }
+  },
+  { once: true }
+);
+
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowUp" && direction !== "down") {
     direction = "up";
@@ -369,5 +318,11 @@ document.addEventListener("keydown", function (event) {
     direction = "left";
   } else if (event.key === "ArrowRight" && direction !== "left") {
     direction = "right";
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === " " && food.color === "red") {
+    generateFood();
   }
 });
