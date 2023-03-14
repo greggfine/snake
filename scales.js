@@ -37,26 +37,8 @@ function getScaleNotes(rootNote, scale) {
   }));
 }
 
-// Example usage
 const cMajorNotes = getScaleNotes(0, ionianScale); // [0, 2, 4, 5, 7, 9, 11]
 const cDorianNotes = getScaleNotes(0, dorianScale); // [0, 2, 4, 5, 7, 9, 11]
-
-// const scales = {
-//   major: majorScale,
-//   minor: minorScale,
-//   dorian: dorianScale,
-//   mixolydian: mixolydianScale,
-// };
-
-// const cMajorNotes = [
-//   { note: "C", frequency: 261.63 },
-//   { note: "D", frequency: 293.66 },
-//   { note: "E", frequency: 329.63 },
-//   { note: "F", frequency: 349.23 },
-//   { note: "G", frequency: 392.0 },
-//   { note: "A", frequency: 440.0 },
-//   { note: "B", frequency: 493.88 },
-// ];
 
 const notCMajorNotes = [
   { note: "C#", frequency: 277.18 },
@@ -70,16 +52,6 @@ const notCMajorNotes = [
   { note: "A#", frequency: 466.16 },
   { note: "Bb", frequency: 466.16 },
 ];
-
-// const cDorianNotes = [
-//   { note: "C", frequency: 261.63 },
-//   { note: "D", frequency: 293.66 },
-//   { note: "Eb", frequency: 311.13 },
-//   { note: "F", frequency: 349.23 },
-//   { note: "G", frequency: 392.0 },
-//   { note: "A", frequency: 440.0 },
-//   { note: "Bb", frequency: 466.16 },
-// ];
 
 const notCDorianNotes = [
   { note: "C#", frequency: 277.18 },

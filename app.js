@@ -1,6 +1,3 @@
-// const synth = new Tone.Synth().toDestination();
-// //play a middle 'C' for the duration of an 8th note
-// synth.triggerAttackRelease("C4", "8n");
 // Set up canvas and game board
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -19,13 +16,12 @@ const scoreElem = document.getElementById("score");
 const currentScaleElem = document.getElementById("current-scale");
 const slowRadio = document.getElementById("slow");
 const fastRadio = document.getElementById("fast");
-const modeSelector = document.getElementById("mode-selector");
+const modeSelectElem = document.getElementById("mode-select");
 
 let attackTriggered = false;
 
 let gameInterval;
 const audioCTX = new AudioContext();
-const audioNodes = []; // Keep track of all audio nodes
 const correctAnswerSound = new Audio("audio/correctAnswer.wav");
 const wrongAnswerSound = new Audio("audio/wrongAnswer.wav");
 const synth = new Tone.PolySynth();
@@ -40,8 +36,8 @@ const sampler = new Tone.Sampler({
   release: 1,
 }).toDestination();
 
-modeSelector.addEventListener("change", (e) => {
-  selectedModeString = e.target.value;
+modeSelectElem.addEventListener("change", (e) => {
+  let selectedModeString = e.target.value;
   if (selectedModeString === "cMajorNotes") {
     userSelectedMode = cMajorNotes;
     otherNotes = notCMajorNotes;
@@ -61,18 +57,15 @@ fastRadio.addEventListener("change", (e) => {
   level = e.target.value;
 });
 
-// Add a listener for the keydown event on the document object
 document.addEventListener(
   "keydown",
   function (event) {
-    // Check if the pressed key is an arrow key
     if (
       event.key === "ArrowUp" ||
       event.key === "ArrowDown" ||
       event.key === "ArrowLeft" ||
       event.key === "ArrowRight"
     ) {
-      // Start the game
       startGame();
     }
   },
@@ -83,11 +76,6 @@ function startGame() {
   if (ctx.state === "suspended") {
     ctx.resume();
   }
-  //   const droneOsc = audioCTX.createOscillator();
-  //   droneOsc.frequency.value = 130.81;
-  //   droneOsc.start();
-  //   droneOsc.connect(audioCTX.destination);
-
   // set the attributes across all the voices using 'set'
   synth.set({
     detune: -1200,
@@ -119,10 +107,8 @@ function startGame() {
     max: 3000, // maximum cutoff frequency
   });
 
-  // connect the LFO to the filter frequency
   lfo.connect(filter.frequency);
 
-  // create an amplitude envelope with a long attack time
   const envelope = new Tone.AmplitudeEnvelope({
     attack: 3, // set a slow attack time
     decay: 1,
@@ -130,35 +116,17 @@ function startGame() {
     release: 3,
   });
 
-  // connect the synth to the filter and envelope, then connect to output
   synth.connect(filter).connect(envelope).toDestination();
   synth.triggerAttack(["C4", "E4", "G4"]);
-  //   synth.triggerAttack("G3", now);
-  //   synth.triggerRelease(now + 60 / 120);
-  //   synth.triggerAttack(["C4", "E4", "G4"]);
-  //   synth.triggerRelease();
-  //   console.log(synth);
-  //   synth.triggerAttackRelease(["C4", "E4", "G4"], "Infinity");
-
-  // start the LFO to modulate the filter frequency over time
-  //   lfo.start();
-  audioNodes.push(synth); // Add the audio node to the array
-  //   audioNodes.push(droneOsc); // Add the audio node to the array
 }
 
 function checkFoodCollision() {
   // Check if snake head is in the same position as the food
   if (snake[0].x === food.x && snake[0].y === food.y) {
-    // const audioCTX = new AudioContext();
-    // const synth = new Tone.Synth().toDestination();
-    // synth.triggerAttackRelease(food.noteFrequency, "8n");
-
     const noteName = food.noteName;
     Tone.loaded().then(() => {
       sampler.triggerAttackRelease(`${noteName}4`, 0.5);
     });
-    // audioNodes.push(synth); // Add the audio node to the array
-    audioNodes.push(sampler); // Add the audio node to the array
     if (
       userSelectedMode.find((obj) => {
         return obj.note === food.noteName;
@@ -177,7 +145,6 @@ function checkFoodCollision() {
   }
 }
 
-// Main game loop
 function gameLoop() {
   // Update snake position and check for collisions
   const newPosition = calculateNewPosition();
@@ -260,7 +227,6 @@ function drawSnake() {
   for (let i = 0; i < boardWidth; i++) {
     for (let j = 0; j < boardHeight; j++) {
       ctx.strokeRect(i * cellSize, j * cellSize, cellSize, cellSize);
-      // ctx.textAlign = "center";
     }
   }
   for (let i = 0; i < snake.length; i++) {
@@ -295,7 +261,6 @@ function drawFood() {
 function drawScore() {
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  // ctx.fillText(`Score: ${score}`, 10, canvas.height - 10);
   scoreElem.textContent = score;
 }
 
@@ -334,20 +299,8 @@ function generateFood() {
 }
 
 function endGame() {
-  //   console.log(synth);
-  //   synth.triggerRelease(now);
   synth.triggerRelease(["C4", "E4", "G4"]);
-  //   synth.set({
-  //     volume: -100,
-  //   });
-  //   console.log(audioNodes);
-  //   audioNodes.forEach((node) => {
-  //     console.log(node);
-  //     // node.stop();
-  //     // const now = Tone.now();
-  //     node.triggerRelease(now + 1);
-  //     // node.triggerAttackRelease();
-  //   });
+
   // Display game over message and stop game loop
   clearInterval(gameInterval);
   ctx.fillStyle = "white";
