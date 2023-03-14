@@ -18,7 +18,7 @@ let food = { x: 10, y: 10 };
 let direction = "right";
 let score = 0;
 let roundNumber = 1;
-let level = "fast";
+let level = "slow";
 let userSelectedMode = cMajorNotes;
 let otherNotes = notCMajorNotes;
 let attackTriggered = false;
@@ -69,7 +69,7 @@ function startGame() {
     Q: 4,
   });
 
-  lfo.connect(filter.frequency);
+  //   lfo.connect(filter.frequency);
 
   const envelope = new Tone.AmplitudeEnvelope({
     attack: 3, // set a slow attack time
@@ -283,29 +283,6 @@ modeSelectElem.addEventListener("change", (e) => {
   }
   console.log(userSelectedMode);
 });
-
-slowRadio.addEventListener("change", (e) => {
-  level = e.target.value;
-});
-
-fastRadio.addEventListener("change", (e) => {
-  level = e.target.value;
-});
-
-document.addEventListener(
-  "keydown",
-  function (event) {
-    if (
-      event.key === "ArrowUp" ||
-      event.key === "ArrowDown" ||
-      event.key === "ArrowLeft" ||
-      event.key === "ArrowRight"
-    ) {
-      startGame();
-    }
-  },
-  { once: true }
-);
 
 slowRadio.addEventListener("change", (e) => {
   level = e.target.value;
