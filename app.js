@@ -1,6 +1,15 @@
 // Set up canvas and game board
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
+// Get DOM Elements
+const scoreElem = document.getElementById("score");
+const currentScaleElem = document.getElementById("current-scale");
+const slowRadio = document.getElementById("slow");
+const fastRadio = document.getElementById("fast");
+const modeSelectElem = document.getElementById("mode-select");
+
+// Game Variables
 const cellSize = 27;
 const boardWidth = canvas.width / cellSize;
 const boardHeight = canvas.height / cellSize;
@@ -12,21 +21,14 @@ let roundNumber = 1;
 let level = "fast";
 let userSelectedMode = cMajorNotes;
 let otherNotes = notCMajorNotes;
-const scoreElem = document.getElementById("score");
-const currentScaleElem = document.getElementById("current-scale");
-const slowRadio = document.getElementById("slow");
-const fastRadio = document.getElementById("fast");
-const modeSelectElem = document.getElementById("mode-select");
-
 let attackTriggered = false;
-
 let gameInterval;
+
+// Audio Variables
 const audioCTX = new AudioContext();
 const correctAnswerSound = new Audio("audio/correctAnswer.wav");
 const wrongAnswerSound = new Audio("audio/wrongAnswer.wav");
-const synth = new Tone.PolySynth();
-
-const noiseSynth = new Tone.NoiseSynth().toDestination();
+const synth = new Tone.PolySynth(Tone.Synth);
 const now = Tone.now();
 const sampler = new Tone.Sampler({
   urls: {
@@ -36,53 +38,18 @@ const sampler = new Tone.Sampler({
   release: 1,
 }).toDestination();
 
-modeSelectElem.addEventListener("change", (e) => {
-  let selectedModeString = e.target.value;
-  if (selectedModeString === "cMajorNotes") {
-    userSelectedMode = cMajorNotes;
-    otherNotes = notCMajorNotes;
-  }
-  if (selectedModeString === "cDorianNotes") {
-    userSelectedMode = cDorianNotes;
-    otherNotes = notCDorianNotes;
-  }
-  console.log(userSelectedMode);
-});
+/* ============================================== */
 
-slowRadio.addEventListener("change", (e) => {
-  level = e.target.value;
-});
-
-fastRadio.addEventListener("change", (e) => {
-  level = e.target.value;
-});
-
-document.addEventListener(
-  "keydown",
-  function (event) {
-    if (
-      event.key === "ArrowUp" ||
-      event.key === "ArrowDown" ||
-      event.key === "ArrowLeft" ||
-      event.key === "ArrowRight"
-    ) {
-      startGame();
-    }
-  },
-  { once: true }
-);
 function startGame() {
   gameInterval = setInterval(gameLoop, level === "fast" ? 160 : 200);
   if (ctx.state === "suspended") {
     ctx.resume();
   }
-  // set the attributes across all the voices using 'set'
   synth.set({
-    detune: -1200,
     volume: -15,
     oscillator: {
-      type: "triangle",
-      count: 2,
+      type: "sawtooth",
+      count: 3,
       spread: 40,
     },
     envelope: {
@@ -93,18 +60,13 @@ function startGame() {
     },
   });
 
+  const gain = new Tone.Gain();
+
   const filter = new Tone.Filter({
     type: "lowpass",
     frequency: 1200,
     rolloff: -12,
     Q: 4,
-  }).toDestination();
-
-  // create an LFO to modulate the filter frequency
-  const lfo = new Tone.LFO({
-    frequency: 0.2, // set a slow modulation rate
-    min: 100, // minimum cutoff frequency
-    max: 3000, // maximum cutoff frequency
   });
 
   lfo.connect(filter.frequency);
@@ -134,9 +96,10 @@ function checkFoodCollision() {
     ) {
       updateScore("increment");
     } else {
+      const noiseSynth = new Tone.NoiseSynth().toDestination();
+      noiseSynth.triggerAttackRelease("4n");
       if (score > 0) {
         updateScore("decrement");
-        noiseSynth.triggerAttackRelease("4n");
       }
     }
     // Increase the score, generate new food, and add a new segment to the snake
@@ -167,13 +130,6 @@ function gameLoop() {
   drawFood();
   roundNumber++;
 }
-
-// Event listener for Escape key
-document.addEventListener("keydown", function (event) {
-  if (event.key === " " && food.color === "red") {
-    generateFood();
-  }
-});
 
 // Helper functions for generating random positions and checking collisions
 function getRandomPosition() {
@@ -313,6 +269,67 @@ function endGame() {
 }
 
 generateFood();
+
+// Event Listeners
+modeSelectElem.addEventListener("change", (e) => {
+  let selectedModeString = e.target.value;
+  if (selectedModeString === "cMajorNotes") {
+    userSelectedMode = cMajorNotes;
+    otherNotes = notCMajorNotes;
+  }
+  if (selectedModeString === "cDorianNotes") {
+    userSelectedMode = cDorianNotes;
+    otherNotes = notCDorianNotes;
+  }
+  console.log(userSelectedMode);
+});
+
+slowRadio.addEventListener("change", (e) => {
+  level = e.target.value;
+});
+
+fastRadio.addEventListener("change", (e) => {
+  level = e.target.value;
+});
+
+document.addEventListener(
+  "keydown",
+  function (event) {
+    if (
+      event.key === "ArrowUp" ||
+      event.key === "ArrowDown" ||
+      event.key === "ArrowLeft" ||
+      event.key === "ArrowRight"
+    ) {
+      startGame();
+    }
+  },
+  { once: true }
+);
+
+slowRadio.addEventListener("change", (e) => {
+  level = e.target.value;
+});
+
+fastRadio.addEventListener("change", (e) => {
+  level = e.target.value;
+});
+
+document.addEventListener(
+  "keydown",
+  function (event) {
+    if (
+      event.key === "ArrowUp" ||
+      event.key === "ArrowDown" ||
+      event.key === "ArrowLeft" ||
+      event.key === "ArrowRight"
+    ) {
+      startGame();
+    }
+  },
+  { once: true }
+);
+
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowUp" && direction !== "down") {
     direction = "up";
@@ -322,5 +339,11 @@ document.addEventListener("keydown", function (event) {
     direction = "left";
   } else if (event.key === "ArrowRight" && direction !== "left") {
     direction = "right";
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === " " && food.color === "red") {
+    generateFood();
   }
 });
