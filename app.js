@@ -97,7 +97,11 @@ function startGame() {
   });
 
   synth.connect(filter).connect(envelope).toDestination();
-  synth.triggerAttack(["C4", "E4", "G4"]);
+  synth.triggerAttack([
+    `${mainNotes[0].note}4`,
+    `${mainNotes[2].note}4`,
+    `${mainNotes[4].note}4`,
+  ]);
 }
 
 function checkFoodCollision() {
@@ -273,8 +277,11 @@ function generateFood() {
 }
 
 function endGame() {
-  synth.triggerRelease(["C4", "E4", "G4"]);
-
+  synth.triggerRelease([
+    `${mainNotes[0].note}4`,
+    `${mainNotes[2].note}4`,
+    `${mainNotes[4].note}4`,
+  ]);
   // Display game over message and stop game loop
   clearInterval(gameInterval);
   ctx.fillStyle = "white";
