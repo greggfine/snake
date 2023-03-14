@@ -1,4 +1,3 @@
-// Define the Scale class
 class Scale {
   constructor(name, intervals) {
     this.name = name;
@@ -20,45 +19,52 @@ class Scale {
   }
 }
 
-// Define your scales
-const ionianScale = new Scale("Major", [0, 2, 4, 5, 7, 9, 11]);
-const dorianScale = new Scale("Dorian", [0, 2, 3, 5, 7, 9, 10]);
-
-// Define a function to get the notes in a scale
-function getScaleNotes(rootNote, scale) {
+function getScaleNotes(tonicNote, scale) {
   const notes = [];
+  console.log(typeof scale);
   for (let i = 0; i < scale.intervals.length; i++) {
     const interval = scale.intervals[i];
-    notes.push((rootNote + interval) % 12);
+    notes.push((tonicNote + interval) % 12);
   }
-  return notes.map((note) => ({
+  //   console.log(notes);
+  const mainNotes = notes.map((note) => ({
     note: scale.notes[note].note,
     frequency: scale.notes[note].frequency,
   }));
+
+  const allNotes = Object.values(scale.notes);
+  const complementaryNotes = allNotes.filter((note) => {
+    return !mainNotes.some((n) => {
+      return n.note === note.note;
+    });
+  });
+  return {
+    mainNotes,
+    complementaryNotes,
+  };
 }
 
-const cMajorNotes = getScaleNotes(0, ionianScale); // [0, 2, 4, 5, 7, 9, 11]
-const cDorianNotes = getScaleNotes(0, dorianScale); // [0, 2, 4, 5, 7, 9, 11]
+const scales = {
+  ionian: new Scale("Ionian", [0, 2, 4, 5, 7, 9, 11]),
+  dorian: new Scale("Dorian", [0, 2, 3, 5, 7, 9, 10]),
+  phrygian: new Scale("Phrygian", [0, 1, 3, 5, 7, 8, 10]),
+  lydian: new Scale("Lydian", [0, 2, 4, 6, 7, 9, 11]),
+  mixolydian: new Scale("Mixolydian", [0, 2, 4, 5, 7, 9, 10]),
+  aeolian: new Scale("Aeolian", [0, 2, 3, 5, 7, 8, 10]),
+  locrian: new Scale("Locrian", [0, 1, 3, 5, 6, 8, 10]),
+};
 
-const notCMajorNotes = [
-  { note: "C#", frequency: 277.18 },
-  { note: "Db", frequency: 277.18 },
-  { note: "D#", frequency: 311.13 },
-  { note: "Eb", frequency: 311.13 },
-  { note: "F#", frequency: 369.99 },
-  { note: "Gb", frequency: 369.99 },
-  { note: "G#", frequency: 415.3 },
-  { note: "Ab", frequency: 415.3 },
-  { note: "A#", frequency: 466.16 },
-  { note: "Bb", frequency: 466.16 },
-];
-
-const notCDorianNotes = [
-  { note: "C#", frequency: 277.18 },
-  { note: "Db", frequency: 277.18 },
-  { note: "E", frequency: 329.63 },
-  { note: "F#", frequency: 369.99 },
-  { note: "Gb", frequency: 369.99 },
-  { note: "G#", frequency: 415.3 },
-  { note: "Ab", frequency: 415.3 },
-];
+const tonics = {
+  C: 0,
+  "C#": 1,
+  D: 2,
+  "D#": 3,
+  E: 4,
+  F: 5,
+  "F#": 6,
+  G: 7,
+  "G#": 8,
+  A: 9,
+  "A#": 10,
+  B: 11,
+};

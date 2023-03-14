@@ -8,6 +8,8 @@ const currentScaleElem = document.getElementById("current-scale");
 const slowRadio = document.getElementById("slow");
 const fastRadio = document.getElementById("fast");
 const modeSelectElem = document.getElementById("mode-select");
+const tonicSelectElem = document.getElementById("tonic-select");
+let scaleNotesDisplay = document.getElementById("scale-notes");
 
 // Game Variables
 const cellSize = 27;
@@ -19,10 +21,26 @@ let direction = "right";
 let score = 0;
 let roundNumber = 1;
 let level = "slow";
-let userSelectedMode = cMajorNotes;
-let otherNotes = notCMajorNotes;
 let attackTriggered = false;
 let gameInterval;
+let selectedMode = "ionian";
+let tonicNote = "C";
+let { mainNotes, complementaryNotes } = getScaleNotes(
+  tonics[tonicNote],
+  scales[selectedMode]
+);
+
+function generateScaleNotes() {
+  let scaleNotes = mainNotes
+    .reduce((accum, curr) => {
+      return accum + " " + curr.note;
+    }, "")
+    .trim();
+  scaleNotesDisplay.textContent = scaleNotes;
+}
+generateScaleNotes();
+
+// let { mainNotes, complementaryNotes } = getScaleNotes(0, ionian);
 
 // Audio Variables
 const audioCTX = new AudioContext();
@@ -90,7 +108,7 @@ function checkFoodCollision() {
       sampler.triggerAttackRelease(`${noteName}4`, 0.5);
     });
     if (
-      userSelectedMode.find((obj) => {
+      mainNotes.find((obj) => {
         return obj.note === food.noteName;
       })
     ) {
@@ -233,7 +251,7 @@ function generateRandNote(goodNotes, badNotes) {
   return randNote;
 }
 function generateFood() {
-  let randNote = generateRandNote(userSelectedMode, otherNotes);
+  let randNote = generateRandNote(mainNotes, complementaryNotes);
   let newPosition = { x: 0, y: 0 };
   do {
     newPosition = {
@@ -248,7 +266,7 @@ function generateFood() {
   food = {
     x: newPosition.x,
     y: newPosition.y,
-    color: userSelectedMode.includes(randNote) ? "green" : "red",
+    color: mainNotes.includes(randNote) ? "green" : "red",
     noteName: randNote.note,
     noteFrequency: randNote.frequency,
   };
@@ -271,17 +289,22 @@ function endGame() {
 generateFood();
 
 // Event Listeners
+tonicSelectElem.addEventListener("change", (e) => {
+  tonicNote = e.target.value;
+  ({ mainNotes, complementaryNotes } = getScaleNotes(
+    tonics[tonicNote],
+    scales[selectedMode]
+  ));
+  generateScaleNotes();
+});
+
 modeSelectElem.addEventListener("change", (e) => {
-  let selectedModeString = e.target.value;
-  if (selectedModeString === "cMajorNotes") {
-    userSelectedMode = cMajorNotes;
-    otherNotes = notCMajorNotes;
-  }
-  if (selectedModeString === "cDorianNotes") {
-    userSelectedMode = cDorianNotes;
-    otherNotes = notCDorianNotes;
-  }
-  console.log(userSelectedMode);
+  selectedMode = e.target.value.toLowerCase();
+  ({ mainNotes, complementaryNotes } = getScaleNotes(
+    tonics[tonicNote],
+    scales[selectedMode]
+  ));
+  generateScaleNotes();
 });
 
 slowRadio.addEventListener("change", (e) => {
