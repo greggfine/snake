@@ -1,43 +1,3 @@
-/*👉canvas {
-  border: 1px solid black;
-  background-color: navy;
-}
-#canvas {
-  border: 1px solid #ccc;
-}
-
-body {
-  background-color: #444;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-
-#game-heading {
-  margin: 0;
-}
-
-h1 {
-  font-size: 36px;
-  margin-top: 50px;
-}
-
-button {
-  background-color: #fff;
-  border: none;
-  border-radius: 5px;
-  color: #222;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-  padding: 10px 20px;
-}
-
-button:hover {
-  background-color: #ddd;
-}
-
-👈*/
 body {
   background-color: lightgrey;
   font-family: sans-serif;
@@ -48,6 +8,12 @@ body {
   font-size: 24px;
   margin-top: 20px;
 }
+
+#enharmonic-container {
+  padding: 0;
+  margin: 0;
+}
+
 #score {
   font-size: 32px;
   color: green;

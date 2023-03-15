@@ -10,6 +10,7 @@ const fastRadio = document.getElementById("fast");
 const modeSelectElem = document.getElementById("mode-select");
 const tonicSelectElem = document.getElementById("tonic-select");
 let scaleNotesDisplay = document.getElementById("scale-notes");
+const enharmonicContainer = document.getElementById("enharmonic-container");
 
 // Game Variables
 const cellSize = 27;
@@ -29,6 +30,7 @@ let { mainNotes, complementaryNotes } = getScaleNotes(
   tonics[tonicNote],
   scales[selectedMode]
 );
+let useSharps = true;
 
 function generateScaleNotes() {
   let scaleNotes = mainNotes
@@ -38,7 +40,6 @@ function generateScaleNotes() {
     .trim();
   scaleNotesDisplay.textContent = scaleNotes;
 }
-generateScaleNotes();
 
 // let { mainNotes, complementaryNotes } = getScaleNotes(0, ionian);
 
@@ -57,6 +58,11 @@ const sampler = new Tone.Sampler({
 }).toDestination();
 
 /* ============================================== */
+
+function init() {
+  generateTonicNotes();
+  generateScaleNotes();
+}
 
 function startGame() {
   gameInterval = setInterval(gameLoop, level === "fast" ? 160 : 200);
@@ -102,6 +108,35 @@ function startGame() {
     `${mainNotes[2].note}4`,
     `${mainNotes[4].note}4`,
   ]);
+}
+
+function generateTonicNotes(
+  sharpsOrFlats = useSharps ? tonicNotesSharps : tonicNotesFlats
+) {
+  const selectedOption = tonicSelectElem.selectedOptions[0];
+  let selectedIndex;
+  if (selectedOption) {
+    selectedIndex = selectedOption.index; // Store the original index of the selected option
+  }
+
+  while (tonicSelectElem.firstChild) {
+    tonicSelectElem.removeChild(tonicSelectElem.firstChild);
+  }
+  sharpsOrFlats.forEach((note, index) => {
+    if (selectedOption && note === selectedOption.value) {
+      // If the current note is the same as the selected option, skip adding a new option
+      selectedIndex = index; // Update the selected index to match the index of the selected option
+    } else {
+      const optionElem = document.createElement("option");
+      optionElem.setAttribute("value", note);
+      optionElem.textContent = note;
+      tonicSelectElem.appendChild(optionElem);
+    }
+  });
+
+  if (selectedOption && !tonicSelectElem.contains(selectedOption)) {
+    tonicSelectElem.add(selectedOption, selectedIndex);
+  }
 }
 
 function checkFoodCollision() {
@@ -297,19 +332,23 @@ generateFood();
 
 // Event Listeners
 tonicSelectElem.addEventListener("change", (e) => {
+  //   console.log(selectedMode);
   tonicNote = e.target.value;
   ({ mainNotes, complementaryNotes } = getScaleNotes(
     tonics[tonicNote],
-    scales[selectedMode]
+    scales[selectedMode],
+    useSharps
   ));
   generateScaleNotes();
 });
 
 modeSelectElem.addEventListener("change", (e) => {
   selectedMode = e.target.value.toLowerCase();
+  console.log(selectedMode);
   ({ mainNotes, complementaryNotes } = getScaleNotes(
     tonics[tonicNote],
-    scales[selectedMode]
+    scales[selectedMode],
+    useSharps
   ));
   generateScaleNotes();
 });
@@ -354,3 +393,19 @@ document.addEventListener("keydown", function (event) {
     generateFood();
   }
 });
+
+enharmonicContainer.addEventListener("change", (e) => {
+  const flatOrSharp = e.target.value;
+  flatOrSharp === "flat"
+    ? generateTonicNotes(tonicNotesFlats)
+    : generateTonicNotes(tonicNotesSharps);
+  useSharps = flatOrSharp === "flat" ? false : true;
+  ({ mainNotes, complementaryNotes } = getScaleNotes(
+    tonics[tonicNote],
+    scales[selectedMode],
+    useSharps
+  ));
+  generateScaleNotes();
+});
+
+init();
