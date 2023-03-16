@@ -65,6 +65,7 @@ function init() {
 }
 
 function startGame() {
+  //   canvas.style.cursor = "none";
   gameInterval = setInterval(gameLoop, level === "fast" ? 160 : 200);
   if (ctx.state === "suspended") {
     ctx.resume();
@@ -312,6 +313,7 @@ function generateFood() {
 }
 
 function endGame() {
+  canvas.style.cursor = "initial";
   synth.triggerRelease([
     `${mainNotes[0].note}4`,
     `${mainNotes[2].note}4`,
@@ -361,22 +363,36 @@ fastRadio.addEventListener("change", (e) => {
   level = e.target.value;
 });
 
-document.addEventListener(
-  "keydown",
-  function (event) {
-    if (
-      event.key === "ArrowUp" ||
-      event.key === "ArrowDown" ||
-      event.key === "ArrowLeft" ||
-      event.key === "ArrowRight"
-    ) {
-      startGame();
-    }
-  },
-  { once: true }
-);
+// document.addEventListener(
+//   "keydown",
+//   function (event) {
+//     if (
+//       event.key === "ArrowUp" ||
+//       event.key === "ArrowDown" ||
+//       event.key === "ArrowLeft" ||
+//       event.key === "ArrowRight"
+//     ) {
+//       event.preventDefault();
+//       startGame();
+//     }
+//   },
+//   { once: true }
+// );
 
-document.addEventListener("keydown", function (event) {
+function handleStartGame(event) {
+  if (
+    event.key === "ArrowUp" ||
+    event.key === "ArrowDown" ||
+    event.key === "ArrowLeft" ||
+    event.key === "ArrowRight"
+  ) {
+    event.preventDefault();
+    canvas.style.cursor = "none";
+    startGame();
+  }
+}
+
+function handleKeyPress(event) {
   if (event.key === "ArrowUp" && direction !== "down") {
     direction = "up";
   } else if (event.key === "ArrowDown" && direction !== "up") {
@@ -386,13 +402,22 @@ document.addEventListener("keydown", function (event) {
   } else if (event.key === "ArrowRight" && direction !== "left") {
     direction = "right";
   }
-});
 
-document.addEventListener("keydown", function (event) {
+  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+    event.preventDefault();
+  }
+}
+
+function handleGenerateFood(event) {
   if (event.key === " " && food.color === "red") {
+    event.preventDefault();
     generateFood();
   }
-});
+}
+
+document.addEventListener("keydown", handleKeyPress);
+document.addEventListener("keydown", handleGenerateFood);
+document.addEventListener("keydown", handleStartGame, { once: true });
 
 enharmonicContainer.addEventListener("change", (e) => {
   const flatOrSharp = e.target.value;
