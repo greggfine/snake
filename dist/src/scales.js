@@ -22,17 +22,27 @@ class Scale {
         };
     }
 }
-function getScaleNotes(tonicNote, scale) {
+function getScaleNotes(tonicNote, scale, useSharps = false) {
     const notes = [];
     for (let i = 0; i < scale.intervals.length; i++) {
         const interval = scale.intervals[i];
         notes.push((tonicNote + interval) % 12);
     }
+    const noteNames = useSharps
+        ? ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+        : ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
     const mainNotes = notes.map((note) => ({
-        note: scale.notes[note].note,
+        // note: scale.notes[note].note,
+        note: noteNames[note],
         frequency: scale.notes[note].frequency,
     }));
-    const allNotes = Object.values(scale.notes);
+    //   const allNotes = Object.values(scale.notes);
+    const allNoteNames = noteNames.slice(0, 12); // Get first 12 notes
+    const allNotes = allNoteNames.map((noteName) => ({
+        note: noteName,
+        //@ts-ignore
+        frequency: scale.notes[tonics[noteName]].frequency,
+    }));
     const complementaryNotes = allNotes.filter((note) => {
         return !mainNotes.some((n) => {
             return n.note === note.note;
@@ -55,14 +65,47 @@ const scales = {
 const tonics = {
     C: 0,
     "C#": 1,
+    Db: 1,
     D: 2,
     "D#": 3,
+    Eb: 3,
     E: 4,
     F: 5,
     "F#": 6,
+    Gb: 6,
     G: 7,
     "G#": 8,
+    Ab: 8,
     A: 9,
     "A#": 10,
+    Bb: 10,
     B: 11,
 };
+const tonicNotesSharps = [
+    "C",
+    "C#",
+    "D",
+    "D#",
+    "E",
+    "F",
+    "F#",
+    "G",
+    "G#",
+    "A",
+    "A#",
+    "B",
+];
+const tonicNotesFlats = [
+    "C",
+    "Db",
+    "D",
+    "Eb",
+    "E",
+    "F",
+    "Gb",
+    "G",
+    "Ab",
+    "A",
+    "Bb",
+    "B",
+];

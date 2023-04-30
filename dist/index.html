@@ -23,21 +23,14 @@
         <input type="radio" name="level" id="slow" value="slow">
         <label for="fast">Fast</label>
         <input type="radio" name="level" id="fast" value="fast">
+        <div id="enharmonic-container">
+          <label for="sharps">Use Sharps</label>
+          <input type="radio" name="enharmonics" id="sharps" value="sharp" checked="">
+          <label for="flats">Use Flats</label>
+          <input type="radio" name="enharmonics" id="flats" value="flat">
+        </div>
         <label for="tonic-select">Select a tonic note:</label>
-        <select id="tonic-select" name="tonic">
-          <option value="C">C</option>
-          <option value="C#">C#</option>
-          <option value="D">D</option>
-          <option value="D#">D#</option>
-          <option value="E">E</option>
-          <option value="F">F</option>
-          <option value="F#">F#</option>
-          <option value="G">G</option>
-          <option value="G#">G#</option>
-          <option value="A">A</option>
-          <option value="A#">A#</option>
-          <option value="B">B</option>
-        </select>
+        <select id="tonic-select" name="tonic"></select>
 
         <label for="mode-select">Select a mode:</label>
         <select id="mode-select" name="mode">
@@ -49,7 +42,6 @@
           <option value="Aeolian">Aeolian</option>
           <option value="Locrian">Locrian</option>
         </select>
-
         <br>
         <br>
         <p>Scale Notes: <span id="scale-notes"></span></p>

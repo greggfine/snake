@@ -568,6 +568,7 @@ const fastRadio = document.getElementById("fast");
 const modeSelectElem = document.getElementById("mode-select");
 const tonicSelectElem = document.getElementById("tonic-select");
 let scaleNotesDisplay = document.getElementById("scale-notes");
+const enharmonicContainer = document.getElementById("enharmonic-container");
 // Game Variables
 const cellSize = 27;
 const boardWidth = canvas.width / cellSize;
@@ -593,13 +594,13 @@ let tonicNote = "C";
 let { mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
 tonics[tonicNote], //@ts-ignore
 scales[selectedMode]);
+let useSharps = true;
 function generateScaleNotes() {
     let scaleNotes = mainNotes.reduce((accum, curr)=>{
         return accum + " " + curr.note;
     }, "").trim();
     scaleNotesDisplay.textContent = scaleNotes;
 }
-generateScaleNotes();
 // let { mainNotes, complementaryNotes } = getScaleNotes(0, ionian);
 // Audio Variables
 const audioCTX = new AudioContext();
@@ -614,7 +615,12 @@ const sampler = new _tone.Sampler({
     baseUrl: "audio/vibraphone/",
     release: 1
 }).toDestination();
-/* ============================================== */ function startGame() {
+/* ============================================== */ function init() {
+    generateTonicNotes();
+    generateScaleNotes();
+}
+function startGame() {
+    //   canvas.style.cursor = "none";
     gameInterval = setInterval(gameLoop, level === "fast" ? 160 : 200);
     if (audioCTX.state === "suspended") audioCTX.resume();
     synth.set({
@@ -651,6 +657,23 @@ const sampler = new _tone.Sampler({
         `${mainNotes[2].note}4`,
         `${mainNotes[4].note}4`
     ]);
+}
+function generateTonicNotes(sharpsOrFlats = useSharps ? tonicNotesSharps : tonicNotesFlats) {
+    const selectedOption = tonicSelectElem.selectedOptions[0];
+    let selectedIndex;
+    if (selectedOption) selectedIndex = selectedOption.index; // Store the original index of the selected option
+    while(tonicSelectElem.firstChild)tonicSelectElem.removeChild(tonicSelectElem.firstChild);
+    sharpsOrFlats.forEach((note, index)=>{
+        if (selectedOption && note === selectedOption.value) // If the current note is the same as the selected option, skip adding a new option
+        selectedIndex = index; // Update the selected index to match the index of the selected option
+        else {
+            const optionElem = document.createElement("option");
+            optionElem.setAttribute("value", note);
+            optionElem.textContent = note;
+            tonicSelectElem.appendChild(optionElem);
+        }
+    });
+    if (selectedOption && !tonicSelectElem.contains(selectedOption)) tonicSelectElem.add(selectedOption, selectedIndex);
 }
 function checkFoodCollision() {
     // Check if snake head is in the same position as the food
@@ -787,6 +810,7 @@ function generateFood() {
     };
 }
 function endGame() {
+    canvas.style.cursor = "initial";
     synth.triggerRelease([
         `${mainNotes[0].note}4`,
         `${mainNotes[2].note}4`,
@@ -808,7 +832,7 @@ tonicSelectElem.addEventListener("change", (e)=>{
     tonicNote = target.value;
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
-    scales[selectedMode]));
+    scales[selectedMode], useSharps));
     generateScaleNotes();
 });
 modeSelectElem.addEventListener("change", (e)=>{
@@ -816,7 +840,7 @@ modeSelectElem.addEventListener("change", (e)=>{
     selectedMode = target.value.toLowerCase();
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
-    scales[selectedMode]));
+    scales[selectedMode], useSharps));
     generateScaleNotes();
 });
 slowRadio.addEventListener("change", (e)=>{
@@ -827,20 +851,62 @@ fastRadio.addEventListener("change", (e)=>{
     const target = e.target;
     level = target.value;
 });
-document.addEventListener("keydown", function(event) {
-    if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight") startGame();
-}, {
-    once: true
-});
-document.addEventListener("keydown", function(event) {
+// document.addEventListener(
+//   "keydown",
+//   function (event) {
+//     if (
+//       event.key === "ArrowUp" ||
+//       event.key === "ArrowDown" ||
+//       event.key === "ArrowLeft" ||
+//       event.key === "ArrowRight"
+//     ) {
+//       event.preventDefault();
+//       startGame();
+//     }
+//   },
+//   { once: true }
+// );
+function handleStartGame(event) {
+    if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        canvas.style.cursor = "none";
+        startGame();
+    }
+}
+function handleKeyPress(event) {
     if (event.key === "ArrowUp" && direction !== "down") direction = "up";
     else if (event.key === "ArrowDown" && direction !== "up") direction = "down";
     else if (event.key === "ArrowLeft" && direction !== "right") direction = "left";
     else if (event.key === "ArrowRight" && direction !== "left") direction = "right";
+    if ([
+        "ArrowUp",
+        "ArrowDown",
+        "ArrowLeft",
+        "ArrowRight"
+    ].includes(event.key)) event.preventDefault();
+}
+function handleGenerateFood(event) {
+    if (event.key === " " && food.color === "red") {
+        event.preventDefault();
+        generateFood();
+    }
+}
+document.addEventListener("keydown", handleKeyPress);
+document.addEventListener("keydown", handleGenerateFood);
+document.addEventListener("keydown", handleStartGame, {
+    once: true
 });
-document.addEventListener("keydown", function(event) {
-    if (event.key === " " && food.color === "red") generateFood();
+enharmonicContainer.addEventListener("change", (e)=>{
+    const target = e.target;
+    const flatOrSharp = target.value;
+    flatOrSharp === "flat" ? generateTonicNotes(tonicNotesFlats) : generateTonicNotes(tonicNotesSharps);
+    useSharps = flatOrSharp === "flat" ? false : true;
+    ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
+    tonics[tonicNote], //@ts-ignore
+    scales[selectedMode], useSharps));
+    generateScaleNotes();
 });
+init();
 
 },{"tone":"2tCfN"}],"2tCfN":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
