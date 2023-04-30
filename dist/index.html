@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="/index.3a01df49.css">
+    <link rel="shortcut icon" href="#">
+    <!-- <script src="https://unpkg.com/tone"></script> -->
+    <!-- <script src="node_modules/tone/build/Tone.js"></script> -->
+    <script src="/index.812d20de.js" defer=""></script>
+    <script src="/index.190e3ea4.js" defer=""></script>
+  </head>
+  <body>
+    <h1 id="game-heading">MODAL SNAKE</h1>
+    <div class="container">
+      <canvas id="canvas" width="400" height="400"></canvas>
+      <div id="data-display">
+        Score: <span id="score"></span>
+        <br>
+        <br>
+        <label for="level-selector">Select a level:</label>
+        <label for="slow">Slow</label>
+        <input type="radio" name="level" id="slow" value="slow">
+        <label for="fast">Fast</label>
+        <input type="radio" name="level" id="fast" value="fast">
+        <label for="tonic-select">Select a tonic note:</label>
+        <select id="tonic-select" name="tonic">
+          <option value="C">C</option>
+          <option value="C#">C#</option>
+          <option value="D">D</option>
+          <option value="D#">D#</option>
+          <option value="E">E</option>
+          <option value="F">F</option>
+          <option value="F#">F#</option>
+          <option value="G">G</option>
+          <option value="G#">G#</option>
+          <option value="A">A</option>
+          <option value="A#">A#</option>
+          <option value="B">B</option>
+        </select>
+
+        <label for="mode-select">Select a mode:</label>
+        <select id="mode-select" name="mode">
+          <option value="Ionian">Ionian</option>
+          <option value="Dorian">Dorian</option>
+          <option value="Phrygian">Phrygian</option>
+          <option value="Lydian">Lydian</option>
+          <option value="Mixolydian">Mixolydian</option>
+          <option value="Aeolian">Aeolian</option>
+          <option value="Locrian">Locrian</option>
+        </select>
+
+        <br>
+        <br>
+        <p>Scale Notes: <span id="scale-notes"></span></p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/greggfine/snake/issues"
   },
-  "homepage": "https://github.com/greggfine/snake#readme"
+  "homepage": "https://github.com/greggfine/snake#readme",
+  "devDependencies": {
+    "parcel": "^2.8.3",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "tone": "^14.7.77"
+  }
 }

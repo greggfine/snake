@@ -1,0 +1,77 @@
+body {
+  background-color: #d3d3d3;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#data-display {
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+#score {
+  color: green;
+  font-size: 32px;
+}
+
+#game-heading {
+  color: #000;
+  text-align: center;
+  margin-top: 30px;
+}
+
+#score {
+  font-weight: bold;
+}
+
+label {
+  color: #000;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+div {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 30px auto 0;
+  padding: 20px;
+}
+
+canvas {
+  background-color: #ce7600;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin: 20px auto 0;
+  display: block;
+}
+
+.container {
+  min-width: 80%;
+  display: flex;
+}
+
+p {
+  margin: 5px 0;
+}
+
+#current-scale {
+  color: orange;
+  font-weight: bold;
+}
+
+#tonic-note {
+  color: tan;
+  font-weight: bold;
+}
+
+#scale-notes {
+  color: #000;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=index.3a01df49.css.map */
