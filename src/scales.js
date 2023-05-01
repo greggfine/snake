@@ -32,7 +32,6 @@ function getScaleNotes(tonicNote, scale, useSharps = false) {
         ? ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
         : ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
     const mainNotes = notes.map((note) => ({
-        // note: scale.notes[note].note,
         note: noteNames[note],
         frequency: scale.notes[note].frequency,
     }));
