@@ -756,14 +756,14 @@ function calculateNewPosition() {
 }
 function drawSnake() {
     // Draw each cell of the snake using ctx.fillRect()
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "#3c3a88";
     for(let i = 0; i < boardWidth; i++)for(let j = 0; j < boardHeight; j++)ctx.strokeRect(i * cellSize, j * cellSize, cellSize, cellSize);
     for(let i = 0; i < snake.length; i++)ctx.fillRect(snake[i].x * cellSize, snake[i].y * cellSize, cellSize, cellSize);
 }
 function drawFood() {
     // Draw the food using ctx.beginPath() and ctx.arc()
     ctx.beginPath();
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "darkpurple";
     ctx.arc((food.x + 0.5) * cellSize, (food.y + 0.5) * cellSize, cellSize / 2, 0, 2 * Math.PI);
     ctx.font = "24px Arial";
     ctx.textAlign = "center";
@@ -774,7 +774,7 @@ function drawFood() {
 }
 function drawScore() {
     ctx.font = "20px Arial";
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "#3c3a88";
     scoreElem.textContent = score.toString();
 }
 function updateScore(state) {
@@ -818,8 +818,8 @@ function endGame() {
     ]);
     // Display game over message and stop game loop
     clearInterval(gameInterval);
-    ctx.fillStyle = "white";
-    ctx.font = "50px Arial";
+    ctx.fillStyle = "#000";
+    ctx.font = "65px Changa One";
     ctx.textAlign = "center";
     ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
     // Stop game loop

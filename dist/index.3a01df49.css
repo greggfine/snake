@@ -22,7 +22,7 @@ body {
 }
 
 #score {
-  color: green;
+  color: #3c3a88;
   font-size: 32px;
 }
 
@@ -63,7 +63,7 @@ div {
 }
 
 canvas {
-  background-color: #ce7600;
+  background-color: #f5f2d0;
   border: 1px solid #000;
   border-radius: 5px;
   margin: 20px auto 0;
