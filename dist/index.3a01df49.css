@@ -1,5 +1,12 @@
+@font-face {
+  font-family: Changa One;
+  src: url("ChangaOne-Regular.f0e59983.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  background-color: #d3d3d3;
+  background-color: #eee;
   margin: 0;
   font-family: sans-serif;
 }
@@ -9,15 +16,28 @@ body {
   font-size: 24px;
 }
 
+#enharmonic-container {
+  margin: 0;
+  padding: 0;
+}
+
 #score {
   color: green;
   font-size: 32px;
 }
 
 #game-heading {
-  color: #000;
   text-align: center;
-  margin-top: 30px;
+  max-width: 400px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #0000;
+  background-image: linear-gradient(60deg, #3c3a88, #00f);
+  margin: 0 auto 40px;
+  font-family: Changa One, sans-serif;
+  font-size: 4rem;
+  line-height: 1;
 }
 
 #score {
