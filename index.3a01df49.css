@@ -1,0 +1,97 @@
+@font-face {
+  font-family: Changa One;
+  src: url("ChangaOne-Regular.f0e59983.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #eee;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#data-display {
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+#enharmonic-container {
+  margin: 0;
+  padding: 0;
+}
+
+#score {
+  color: #3c3a88;
+  font-size: 32px;
+}
+
+#game-heading {
+  text-align: center;
+  max-width: 400px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #0000;
+  background-image: linear-gradient(60deg, #3c3a88, #00f);
+  margin: 0 auto 40px;
+  font-family: Changa One, sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+#score {
+  font-weight: bold;
+}
+
+label {
+  color: #000;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+div {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 30px auto 0;
+  padding: 20px;
+}
+
+canvas {
+  background-color: #f5f2d0;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin: 20px auto 0;
+  display: block;
+}
+
+.container {
+  min-width: 80%;
+  display: flex;
+}
+
+p {
+  margin: 5px 0;
+}
+
+#current-scale {
+  color: orange;
+  font-weight: bold;
+}
+
+#tonic-note {
+  color: tan;
+  font-weight: bold;
+}
+
+#scale-notes {
+  color: #000;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=index.3a01df49.css.map */
