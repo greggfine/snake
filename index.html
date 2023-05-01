@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Snake Game</title>
-    <link rel="stylesheet" href="/index.3a01df49.css">
-    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="./index.3a01df49.css" />
+    <link rel="shortcut icon" href="#" />
     <!-- <script src="https://unpkg.com/tone"></script> -->
     <!-- <script src="node_modules/tone/build/Tone.js"></script> -->
-    <script src="/index.812d20de.js" defer=""></script>
-    <script src="/index.190e3ea4.js" defer=""></script>
+    <script src="./index.812d20de.js" defer=""></script>
+    <script src="./index.190e3ea4.js" defer=""></script>
   </head>
   <body>
     <h1 id="game-heading">MODAL SNAKE</h1>
@@ -16,18 +16,24 @@
       <canvas id="canvas" width="400" height="400"></canvas>
       <div id="data-display">
         Score: <span id="score"></span>
-        <br>
-        <br>
+        <br />
+        <br />
         <label for="level-selector">Select a level:</label>
         <label for="slow">Slow</label>
-        <input type="radio" name="level" id="slow" value="slow">
+        <input type="radio" name="level" id="slow" value="slow" />
         <label for="fast">Fast</label>
-        <input type="radio" name="level" id="fast" value="fast">
+        <input type="radio" name="level" id="fast" value="fast" />
         <div id="enharmonic-container">
           <label for="sharps">Use Sharps</label>
-          <input type="radio" name="enharmonics" id="sharps" value="sharp" checked="">
+          <input
+            type="radio"
+            name="enharmonics"
+            id="sharps"
+            value="sharp"
+            checked=""
+          />
           <label for="flats">Use Flats</label>
-          <input type="radio" name="enharmonics" id="flats" value="flat">
+          <input type="radio" name="enharmonics" id="flats" value="flat" />
         </div>
         <label for="tonic-select">Select a tonic note:</label>
         <select id="tonic-select" name="tonic"></select>
@@ -42,8 +48,8 @@
           <option value="Aeolian">Aeolian</option>
           <option value="Locrian">Locrian</option>
         </select>
-        <br>
-        <br>
+        <br />
+        <br />
         <p>Scale Notes: <span id="scale-notes"></span></p>
       </div>
     </div>
