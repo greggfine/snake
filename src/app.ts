@@ -1,6 +1,6 @@
 import * as Tone from "tone";
 
-import { Food, Note, Position } from "../types/types";
+import { Food, Note, Position } from "./types/types";
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
@@ -23,7 +23,7 @@ const enharmonicContainer = document.getElementById(
 ) as HTMLDivElement;
 
 // Game Variables
-const cellSize = 27;
+const cellSize = 34;
 const boardWidth = canvas.width / cellSize;
 const boardHeight = canvas.height / cellSize;
 let snake = [{ x: 5, y: 5 }];
@@ -268,7 +268,7 @@ function drawSnake() {
 function drawFood() {
   // Draw the food using ctx.beginPath() and ctx.arc()
   ctx.beginPath();
-  ctx.fillStyle = "darkpurple";
+  ctx.fillStyle = "#1A090D";
   ctx.arc(
     (food.x + 0.5) * cellSize,
     (food.y + 0.5) * cellSize,
@@ -276,11 +276,11 @@ function drawFood() {
     0,
     2 * Math.PI
   );
-  ctx.font = "24px Arial";
+  ctx.font = "600 24px Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   const textX = (food.x + 0.5) * cellSize;
-  const textY = (food.y + 0.5) * cellSize;
+  const textY = (food.y + 0.53) * cellSize;
   ctx.fillText(food.noteName, textX, textY);
 }
 
