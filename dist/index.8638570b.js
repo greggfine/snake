@@ -1,8 +1,4 @@
-"use strict";
 class Scale {
-    name;
-    intervals;
-    notes;
     constructor(name, intervals){
         this.name = name;
         this.intervals = intervals;
@@ -92,7 +88,6 @@ function getScaleNotes(tonicNote, scale, useSharps = false) {
         "B"
     ];
     const mainNotes = notes.map((note)=>({
-            // note: scale.notes[note].note,
             note: noteNames[note],
             frequency: scale.notes[note].frequency
         }));
@@ -226,4 +221,4 @@ const tonicNotesFlats = [
     "B"
 ];
 
-//# sourceMappingURL=index.812d20de.js.map
+//# sourceMappingURL=index.8638570b.js.map

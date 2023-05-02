@@ -2,7 +2,6 @@
   "name": "v003",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
   "homepage": "https://greggfine.github.io/snake",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

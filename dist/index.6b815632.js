@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"61Vgs":[function(require,module,exports) {
+})({"lSgxL":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "40770ceb190e3ea4";
+module.bundle.HMR_BUNDLE_ID = "0cf78e626b815632";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -556,7 +556,7 @@ function hmrAccept(bundle, id) {
     });
 }
 
-},{}],"7XU6M":[function(require,module,exports) {
+},{}],"kuM8f":[function(require,module,exports) {
 var _tone = require("tone");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -1502,7 +1502,7 @@ const isSupported = ()=>(0, _isSupportedPromise.createIsSupportedPromise)(cacheT
 
 },{"automation-events":"kxaFt","./factories/abort-error":"68YNi","./factories/add-active-input-connection-to-audio-node":"hWkkO","./factories/add-audio-node-connections":"kbJuF","./factories/add-audio-param-connections":"yMuUk","./factories/add-audio-worklet-module":"78VC1","./factories/add-connection-to-audio-node":"euwNB","./factories/add-passive-input-connection-to-audio-node":"6IMYe","./factories/add-silent-connection":"67JSI","./factories/add-unrendered-audio-worklet-node":"8f4Y4","./factories/analyser-node-constructor":"3Jxni","./factories/analyser-node-renderer-factory":"6tQEB","./factories/audio-buffer-constructor":"dszIU","./factories/audio-buffer-source-node-constructor":"8EaZc","./factories/audio-buffer-source-node-renderer-factory":"610ix","./factories/audio-context-constructor":"atX0V","./factories/audio-destination-node-constructor":"4BIeJ","./factories/audio-destination-node-renderer-factory":"gunYG","./factories/audio-listener-factory":"1a6Qa","./factories/audio-node-constructor":"wwDLJ","./factories/audio-param-factory":"iMx7e","./factories/audio-param-renderer":"9IbWX","./factories/audio-worklet-node-constructor":"2Gmbn","./factories/audio-worklet-node-renderer-factory":"kfvDm","./factories/base-audio-context-constructor":"1Qln6","./factories/biquad-filter-node-constructor":"2ojuk","./factories/biquad-filter-node-renderer-factory":"hC3lP","./factories/cache-test-result":"jAn86","./factories/channel-merger-node-constructor":"5qPp9","./factories/channel-merger-node-renderer-factory":"4213f","./factories/channel-splitter-node-constructor":"kBxxA","./factories/channel-splitter-node-renderer-factory":"eO46O","./factories/connect-audio-param":"hqUP2","./factories/connect-multiple-outputs":"8jyft","./factories/connected-native-audio-buffer-source-node-factory":"hT5R1","./factories/constant-source-node-constructor":"6BBM1","./factories/constant-source-node-renderer-factory":"kDcHK","./factories/convert-number-to-unsigned-long":"1xC44","./factories/convolver-node-constructor":"kcFQc","./factories/convolver-node-renderer-factory":"kmgKW","./factories/create-native-offline-audio-context":"7737w","./factories/data-clone-error":"h0Bd5","./factories/decode-audio-data":"foJCq","./factories/decrement-cycle-counter":"jg4nh","./factories/delay-node-constructor":"byamz","./factories/delay-node-renderer-factory":"1NO5F","./factories/delete-active-input-connection-to-audio-node":"3FRri","./factories/delete-unrendered-audio-worklet-node":"fNWyx","./factories/detect-cycles":"8VyTi","./factories/disconnect-multiple-outputs":"jaNPz","./factories/dynamics-compressor-node-constructor":"1G29t","./factories/dynamics-compressor-node-renderer-factory":"pqFDv","./factories/encoding-error":"2alua","./factories/evaluate-source":"8CpjU","./factories/event-target-constructor":"gjDDq","./factories/expose-current-frame-and-current-time":"gNRs4","./factories/fetch-source":"h4onu","./factories/gain-node-constructor":"9a9Vk","./factories/gain-node-renderer-factory":"itz3A","./factories/get-active-audio-worklet-node-inputs":"dg8Gd","./factories/get-audio-node-renderer":"k8CrE","./factories/get-audio-node-tail-time":"cKCqS","./factories/get-audio-param-renderer":"k8fN6","./factories/get-backup-offline-audio-context":"1vR8R","./factories/get-native-context":"2Ytji","./factories/get-or-create-backup-offline-audio-context":"kLefC","./factories/get-unrendered-audio-worklet-nodes":"jI5Mi","./factories/iir-filter-node-constructor":"3jZOn","./factories/iir-filter-node-renderer-factory":"eyGMp","./factories/increment-cycle-counter-factory":"eIT5f","./factories/index-size-error":"iKVgV","./factories/invalid-access-error":"u7Sql","./factories/invalid-state-error":"diSZR","./factories/is-any-audio-context":"eHxqH","./factories/is-any-audio-node":"tjPuV","./factories/is-any-audio-param":"hncwE","./factories/is-any-offline-audio-context":"evgeG","./factories/is-native-audio-context":"ctipH","./factories/is-native-audio-node":"6XefY","./factories/is-native-audio-param":"8zo2U","./factories/is-native-context":"bqWH8","./factories/is-native-offline-audio-context":"absQf","./factories/is-secure-context":"c4RLa","./factories/is-supported-promise":"lB7Vh","./factories/media-element-audio-source-node-constructor":"gvVfX","./factories/media-stream-audio-destination-node-constructor":"76MLr","./factories/media-stream-audio-source-node-constructor":"7y92U","./factories/media-stream-track-audio-source-node-constructor":"eubAO","./factories/minimal-audio-context-constructor":"2Rukp","./factories/minimal-base-audio-context-constructor":"8u4st","./factories/minimal-offline-audio-context-constructor":"9yhkF","./factories/monitor-connections":"eUd0z","./factories/native-analyser-node-factory":"eAIIV","./factories/native-audio-buffer-constructor":"2XJiC","./factories/native-audio-buffer-source-node-factory":"fj4aF","./factories/native-audio-context-constructor":"awJaY","./factories/native-audio-destination-node":"l61vA","./factories/native-audio-worklet-node-constructor":"eKntr","./factories/native-audio-worklet-node-factory":"3bxEK","./factories/native-audio-worklet-node-faker-factory":"8dSFA","./factories/native-biquad-filter-node":"Apyjl","./factories/native-channel-merger-node-factory":"90fMG","./factories/native-channel-splitter-node":"8Z3X6","./factories/native-constant-source-node-factory":"aZ9aQ","./factories/native-constant-source-node-faker-factory":"Jx9uB","./factories/native-convolver-node-factory":"1os2P","./factories/native-delay-node":"76TcR","./factories/native-dynamics-compressor-node-factory":"63iaU","./factories/native-gain-node":"k23ba","./factories/native-iir-filter-node-factory":"kpXKu","./factories/native-iir-filter-node-faker-factory":"3kywH","./factories/native-media-element-audio-source-node":"g804o","./factories/native-media-stream-audio-destination-node":"5Nm8V","./factories/native-media-stream-audio-source-node":"cc1Vv","./factories/native-media-stream-track-audio-source-node-factory":"833HX","./factories/native-offline-audio-context-constructor":"clMxf","./factories/native-oscillator-node-factory":"gRc8o","./factories/native-panner-node-factory":"aE8DJ","./factories/native-panner-node-faker-factory":"doyFo","./factories/native-periodic-wave-factory":"hMgnX","./factories/native-script-processor-node":"63kc1","./factories/native-stereo-panner-node-factory":"46iGP","./factories/native-stereo-panner-node-faker-factory":"3tpsg","./factories/native-wave-shaper-node-factory":"fYxR5","./factories/native-wave-shaper-node-faker-factory":"48VV2","./factories/not-supported-error":"fLKAR","./factories/offline-audio-context-constructor":"9iLZs","./factories/oscillator-node-constructor":"cS1X5","./factories/oscillator-node-renderer-factory":"21Ubp","./factories/panner-node-constructor":"3pCGA","./factories/panner-node-renderer-factory":"dmoFH","./factories/periodic-wave-constructor":"lQWxF","./factories/render-automation":"beVBx","./factories/render-inputs-of-audio-node":"lHwkb","./factories/render-inputs-of-audio-param":"h2qZT","./factories/render-native-offline-audio-context":"iIK4Q","./factories/set-active-audio-worklet-node-inputs":"3VTsP","./factories/set-audio-node-tail-time":"hzHas","./factories/start-rendering":"ebqUV","./factories/stereo-panner-node-constructor":"gc2rO","./factories/stereo-panner-node-renderer-factory":"dAPan","./factories/test-audio-buffer-constructor-support":"60xJt","./factories/test-audio-buffer-copy-channel-methods-subarray-support":"fDZlv","./factories/test-audio-context-close-method-support":"k9nLI","./factories/test-audio-context-decode-audio-data-method-type-error-support":"8SGZm","./factories/test-audio-context-options-support":"5NBS1","./factories/test-audio-node-connect-method-support":"4ontN","./factories/test-audio-worklet-processor-no-outputs-support":"baMs2","./factories/test-audio-worklet-processor-post-message-support":"47G9e","./factories/test-channel-merger-node-channel-count-support":"X0MIV","./factories/test-constant-source-node-accurate-scheduling-support":"dl03N","./factories/test-convolver-node-buffer-reassignability-support":"5yl0D","./factories/test-convolver-node-channel-count-support":"gM3PR","./factories/test-is-secure-context-support":"amjh7","./factories/test-media-stream-audio-source-node-media-stream-without-audio-track-support":"bfbzD","./factories/test-offline-audio-context-current-time-support":"5xrL5","./factories/test-stereo-panner-node-default-value-support":"eG97H","./factories/unknown-error":"Vr3Lh","./factories/wave-shaper-node-constructor":"1yyiX","./factories/wave-shaper-node-renderer-factory":"8vhCu","./factories/window":"dEK7L","./factories/wrap-audio-buffer-copy-channel-methods":"bNAxX","./factories/wrap-audio-buffer-copy-channel-methods-out-of-bounds":"4XNvu","./factories/wrap-audio-buffer-source-node-stop-method-nullified-buffer":"ckaEw","./factories/wrap-channel-merger-node":"8txzE","./globals":"j1ar4","./helpers/connect-native-audio-node-to-native-audio-node":"he3cM","./helpers/disconnect-native-audio-node-from-native-audio-node":"766cG","./helpers/get-audio-node-connections":"huPRp","./helpers/get-audio-param-connections":"hfbFD","./helpers/get-event-listeners-of-audio-node":"hrKEN","./helpers/get-first-sample":"lprXE","./helpers/get-native-audio-node":"f9hIK","./helpers/get-native-audio-param":"fLdpl","./helpers/get-value-for-key":"kJr16","./helpers/insert-element-in-set":"917M8","./helpers/is-active-audio-node":"j8Y4t","./helpers/is-dc-curve":"1AlFj","./helpers/is-part-of-a-cycle":"jcP4P","./helpers/is-passive-audio-node":"1eGb9","./helpers/overwrite-accessors":"hfSZZ","./helpers/pick-element-from-set":"9U2YJ","./helpers/sanitize-audio-worklet-node-options":"T7Ytc","./helpers/sanitize-channel-splitter-options":"eYcVh","./helpers/sanitize-periodic-wave-options":"2uUdY","./helpers/set-value-at-time-until-possible":"U9WdO","./helpers/test-audio-buffer-copy-channel-methods-out-of-bounds-support":"bwZhm","./helpers/test-audio-buffer-source-node-start-method-consecutive-calls-support":"d1Bp3","./helpers/test-audio-buffer-source-node-start-method-offset-clamping-support":"ljLh5","./helpers/test-audio-buffer-source-node-stop-method-nullified-buffer-support":"1AlzI","./helpers/test-audio-scheduled-source-node-start-method-negative-parameters-support":"iXOCC","./helpers/test-audio-scheduled-source-node-stop-method-consecutive-calls-support":"6HMSy","./helpers/test-audio-scheduled-source-node-stop-method-negative-parameters-support":"3eDpC","./helpers/test-audio-worklet-node-options-clonability":"cKeDz","./helpers/test-dom-exception-constructor-support":"4CH46","./helpers/test-promise-support":"4hyPB","./helpers/test-transferables-support":"5nYF9","./helpers/wrap-audio-buffer-source-node-start-method-offset-clamping":"cWWvc","./helpers/wrap-audio-scheduled-source-node-stop-method-consecutive-calls":"fZgIG","./helpers/wrap-event-listener":"gbqed","./interfaces/index":"bFhB6","./types/index":"6tI3M","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kxaFt":[function(require,module,exports) {
 (function(global, factory) {
-    factory(exports, require("e380e0f5686ea8dc"), require("f02868bf2d3129d8"), require("b449d093c7e6b7aa"));
+    factory(exports, require("eeb06336f5d1921b"), require("bf4681f9b31da91"), require("b125562182e2acb"));
 })(this, function(exports1, _slicedToArray, _classCallCheck, _createClass) {
     "use strict";
     var createExtendedExponentialRampToValueAutomationEvent = function createExtendedExponentialRampToValueAutomationEvent(value, endTime, insertTime) {
@@ -1766,17 +1766,17 @@ const isSupported = ()=>(0, _isSupportedPromise.createIsSupportedPromise)(cacheT
     exports1.createSetValueCurveAutomationEvent = createSetValueCurveAutomationEvent;
 });
 
-},{"e380e0f5686ea8dc":"6AJmz","f02868bf2d3129d8":"3nRml","b449d093c7e6b7aa":"2yzPp"}],"6AJmz":[function(require,module,exports) {
-var arrayWithHoles = require("7b860c6e4974fb6a");
-var iterableToArrayLimit = require("36862f004d8d477b");
-var unsupportedIterableToArray = require("2ded23f234d37706");
-var nonIterableRest = require("ff27fdac1ea3dff5");
+},{"eeb06336f5d1921b":"6AJmz","bf4681f9b31da91":"3nRml","b125562182e2acb":"2yzPp"}],"6AJmz":[function(require,module,exports) {
+var arrayWithHoles = require("b06017e0db47d260");
+var iterableToArrayLimit = require("ff3d2c8da1f7d4a7");
+var unsupportedIterableToArray = require("e9966e03b3eca61f");
+var nonIterableRest = require("676f3da7b8060628");
 function _slicedToArray(arr, i) {
     return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
 }
 module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-},{"7b860c6e4974fb6a":"5CPOx","36862f004d8d477b":"2B9nq","2ded23f234d37706":"cFxnT","ff27fdac1ea3dff5":"9O5RF"}],"5CPOx":[function(require,module,exports) {
+},{"b06017e0db47d260":"5CPOx","ff3d2c8da1f7d4a7":"2B9nq","e9966e03b3eca61f":"cFxnT","676f3da7b8060628":"9O5RF"}],"5CPOx":[function(require,module,exports) {
 function _arrayWithHoles(arr) {
     if (Array.isArray(arr)) return arr;
 }
@@ -1807,7 +1807,7 @@ function _iterableToArrayLimit(arr, i) {
 module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 },{}],"cFxnT":[function(require,module,exports) {
-var arrayLikeToArray = require("5aeef39dc2430f63");
+var arrayLikeToArray = require("5e6913379c301938");
 function _unsupportedIterableToArray(o, minLen) {
     if (!o) return;
     if (typeof o === "string") return arrayLikeToArray(o, minLen);
@@ -1818,7 +1818,7 @@ function _unsupportedIterableToArray(o, minLen) {
 }
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-},{"5aeef39dc2430f63":"2QyYi"}],"2QyYi":[function(require,module,exports) {
+},{"5e6913379c301938":"2QyYi"}],"2QyYi":[function(require,module,exports) {
 function _arrayLikeToArray(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
@@ -1839,7 +1839,7 @@ function _classCallCheck(instance, Constructor) {
 module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 },{}],"2yzPp":[function(require,module,exports) {
-var toPropertyKey = require("38764430ba09b47d");
+var toPropertyKey = require("95916df473b25c11");
 function _defineProperties(target, props) {
     for(var i = 0; i < props.length; i++){
         var descriptor = props[i];
@@ -1859,16 +1859,16 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-},{"38764430ba09b47d":"5P3X5"}],"5P3X5":[function(require,module,exports) {
-var _typeof = require("4b4b730ba0489f4c")["default"];
-var toPrimitive = require("8471a35e59552cd1");
+},{"95916df473b25c11":"5P3X5"}],"5P3X5":[function(require,module,exports) {
+var _typeof = require("c36f98cb2fe6064b")["default"];
+var toPrimitive = require("6377ec48be394620");
 function _toPropertyKey(arg) {
     var key = toPrimitive(arg, "string");
     return _typeof(key) === "symbol" ? key : String(key);
 }
 module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-},{"4b4b730ba0489f4c":"jgQjt","8471a35e59552cd1":"eJCHQ"}],"jgQjt":[function(require,module,exports) {
+},{"c36f98cb2fe6064b":"jgQjt","6377ec48be394620":"eJCHQ"}],"jgQjt":[function(require,module,exports) {
 function _typeof(obj) {
     "@babel/helpers - typeof";
     return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj) {
@@ -1880,7 +1880,7 @@ function _typeof(obj) {
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 },{}],"eJCHQ":[function(require,module,exports) {
-var _typeof = require("1f35503a191025de")["default"];
+var _typeof = require("7c9578449930456e")["default"];
 function _toPrimitive(input, hint) {
     if (_typeof(input) !== "object" || input === null) return input;
     var prim = input[Symbol.toPrimitive];
@@ -1893,7 +1893,7 @@ function _toPrimitive(input, hint) {
 }
 module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-},{"1f35503a191025de":"jgQjt"}],"68YNi":[function(require,module,exports) {
+},{"7c9578449930456e":"jgQjt"}],"68YNi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "createAbortError", ()=>createAbortError);
@@ -33821,6 +33821,6 @@ class Convolver extends (0, _toneAudioNode.ToneAudioNode) {
     }
 }
 
-},{"tslib":"lRdW5","../../core/context/ToneAudioNode":"kZ3Kj","../../core/context/ToneAudioBuffer":"8aSPC","../../core/util/Defaults":"a9M5s","../../core/context/Gain":"kj68Y","../../core/util/Interface":"hVOjA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["61Vgs","7XU6M"], "7XU6M", "parcelRequired0cc")
+},{"tslib":"lRdW5","../../core/context/ToneAudioNode":"kZ3Kj","../../core/context/ToneAudioBuffer":"8aSPC","../../core/util/Defaults":"a9M5s","../../core/context/Gain":"kj68Y","../../core/util/Interface":"hVOjA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["lSgxL","kuM8f"], "kuM8f", "parcelRequired0cc")
 
-//# sourceMappingURL=index.190e3ea4.js.map
+//# sourceMappingURL=index.6b815632.js.map

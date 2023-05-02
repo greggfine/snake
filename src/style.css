@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Changa One";
-  src: url("./dist/fonts/ChangaOne-Regular.ttf") format("truetype");
+  src: url("fonts/ChangaOne-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -23,18 +23,6 @@ body {
 #score {
   font-size: 32px;
   color: #3c3a88;
-}
-#game-heading {
-  font-size: 4rem;
-  text-align: center;
-  line-height: 1;
-  font-family: "Changa One", sans-serif;
-  max-width: 400px;
-  margin: 0 auto 40px;
-  background-clip: text;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(60deg, #3c3a88, blue);
-  color: transparent;
 }
 
 #score {
@@ -91,4 +79,25 @@ p {
 #scale-notes {
   font-weight: bold;
   color: black;
+}
+
+.game-header-wrap {
+  display: flex;
+  background-color: transparent;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+}
+
+#game-heading {
+  font-size: 4rem;
+  text-align: center;
+  line-height: 1;
+  font-family: "Changa One", sans-serif;
+  max-width: 400px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(60deg, #3c3a88, blue);
+  color: transparent;
+  margin: 0;
 }
