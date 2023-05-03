@@ -561,6 +561,8 @@ var _tone = require("tone");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 // Get DOM Elements
+const startGameBtn = document.getElementById("start-game-btn");
+const optionsDisplay = document.getElementById("options-display");
 const scoreElem = document.getElementById("score");
 const currentScaleElem = document.getElementById("current-scale");
 const slowRadio = document.getElementById("slow");
@@ -589,6 +591,7 @@ let roundNumber = 1;
 let level = "slow";
 let attackTriggered = false;
 let gameInterval;
+let optionsIsHidden = false;
 let selectedMode = "ionian";
 let tonicNote = "C";
 let { mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
@@ -827,6 +830,9 @@ function endGame() {
 }
 generateFood();
 // Event Listeners
+startGameBtn.addEventListener("click", ()=>{
+    !optionsIsHidden ? optionsDisplay.classList.add("hidden") : optionsDisplay.classList.remove("hidden");
+});
 tonicSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
     tonicNote = target.value;
