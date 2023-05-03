@@ -21,6 +21,7 @@ canvas {
 
 .container {
   min-width: 440px;
+  min-height: 600px;
   position: relative;
 }
 
@@ -182,7 +183,7 @@ p {
   background-color: #3c3a88;
   border: 4px solid #e3d865;
   border-radius: 8px;
-  margin: 40px auto 0;
+  margin-top: 40px;
   padding: .75em 1.5em;
   font-size: 1.1rem;
   transition: all .1s ease-in;
