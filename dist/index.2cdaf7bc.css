@@ -184,4 +184,16 @@ p {
   font-weight: bold;
 }
 
+@media (width >= 960px) {
+  .container {
+    width: 75%;
+    max-width: 1200px;
+    position: relative;
+  }
+
+  .options-display {
+    width: 100%;
+  }
+}
+
 /*# sourceMappingURL=index.2cdaf7bc.css.map */

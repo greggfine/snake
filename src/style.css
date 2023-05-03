@@ -190,3 +190,14 @@ p {
   font-weight: bold;
   color: black;
 }
+
+@media (min-width: 960px) {
+  .container {
+    width: 75%;
+    max-width: 1200px;
+    position: relative;
+  }
+  .options-display {
+    width: 100%;
+  }
+}
