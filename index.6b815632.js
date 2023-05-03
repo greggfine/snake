@@ -561,6 +561,8 @@ var _tone = require("tone");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 // Get DOM Elements
+const startGameBtn = document.getElementById("start-game-btn");
+const optionsDisplay = document.getElementById("options-display");
 const scoreElem = document.getElementById("score");
 const currentScaleElem = document.getElementById("current-scale");
 const slowRadio = document.getElementById("slow");
@@ -589,6 +591,7 @@ let roundNumber = 1;
 let level = "slow";
 let attackTriggered = false;
 let gameInterval;
+let optionsIsHidden = false;
 let selectedMode = "ionian";
 let tonicNote = "C";
 let { mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
@@ -822,11 +825,27 @@ function endGame() {
     ctx.font = "65px Changa One";
     ctx.textAlign = "center";
     ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
-    // Stop game loop
+    const playAgainBtn = document.createElement("button");
+    playAgainBtn.textContent = "Play Again?";
+    playAgainBtn.classList.add("play-again-btn");
+    document.body.appendChild(playAgainBtn);
+    playAgainBtn.addEventListener("click", (e)=>{
+        optionsDisplay.classList.remove("hidden");
+        score = 0;
+        scoreElem.textContent = score.toString();
+        const playAgainBtn = e.target;
+        const bodyEl = playAgainBtn.parentElement;
+        bodyEl.removeChild(playAgainBtn);
+        /* THIS IS TEMPORARY: NEED TO RESET STATE and START GAME */ window.location.reload();
+    });
+    /* reset score */ /* remove GAME OVER */ /* reset food */ /* reset snake */ /* playAgainBtn disappear */ // Stop game loop
     clearInterval(gameInterval);
 }
 generateFood();
 // Event Listeners
+startGameBtn.addEventListener("click", ()=>{
+    !optionsIsHidden ? optionsDisplay.classList.add("hidden") : optionsDisplay.classList.remove("hidden");
+});
 tonicSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
     tonicNote = target.value;

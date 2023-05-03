@@ -14,9 +14,10 @@
       <h1 id="game-heading">MODAL SNAKE</h1>
     </div>
     <div class="container">
+      <div id="data-display">Score: <span id="score"></span></div>
+      <p><span id="scale-notes"></span></p>
       <canvas id="canvas" width="440" height="400"></canvas>
-      <div id="data-display">
-        Score: <span id="score"></span>
+      <div class="options-display" id="options-display">
         <br>
         <br>
         <label for="level-selector">Speed:</label>
@@ -45,7 +46,7 @@
         </select>
         <br>
         <br>
-        <p><span id="scale-notes"></span></p>
+        <button id="start-game-btn" class="start-game-btn">Start Game</button>
       </div>
     </div>
   </body>
