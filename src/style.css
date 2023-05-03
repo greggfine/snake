@@ -28,8 +28,10 @@ canvas {
   color: orange;
 }
 #data-display {
-  font-size: 24px;
-  margin-top: 20px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 div {
@@ -42,12 +44,9 @@ div {
 }
 
 #enharmonic-container {
-  /* padding: 0;
-  margin: 0; */
 }
 .enharmonic-wrapper {
   margin: 0;
-  /* text-align: center; */
 }
 .game-header-wrap {
   display: flex;
@@ -158,12 +157,25 @@ p {
 }
 
 #score {
-  font-size: 32px;
-  color: #3c3a88;
+  font-size: 24px;
 }
 
 #score {
-  font-weight: bold;
+}
+.scale-score-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  width: 100%;
+}
+.selected-scale {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 900;
+  margin: 0 auto;
+  padding: 0;
 }
 .start-game-btn {
   margin-top: 40px;
@@ -189,6 +201,8 @@ p {
 #scale-notes {
   font-weight: bold;
   color: black;
+  margin: 0;
+  padding: 0;
 }
 
 @media (min-width: 960px) {
@@ -199,5 +213,13 @@ p {
   }
   .options-display {
     width: 100%;
+  }
+  .scale-score-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0 auto;
+    align-items: center;
+    width: 440px;
   }
 }

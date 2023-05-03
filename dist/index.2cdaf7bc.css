@@ -30,8 +30,10 @@ canvas {
 }
 
 #data-display {
-  margin-top: 20px;
-  font-size: 24px;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 
 div {
@@ -152,9 +154,24 @@ p {
 }
 
 #score {
-  color: #3c3a88;
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 24px;
+}
+
+.scale-score-wrapper {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.selected-scale {
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 1.75rem;
+  font-weight: 900;
 }
 
 .start-game-btn {
@@ -181,6 +198,8 @@ p {
 
 #scale-notes {
   color: #000;
+  margin: 0;
+  padding: 0;
   font-weight: bold;
 }
 
@@ -193,6 +212,15 @@ p {
 
   .options-display {
     width: 100%;
+  }
+
+  .scale-score-wrapper {
+    width: 440px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
   }
 }
 
