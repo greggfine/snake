@@ -17,35 +17,46 @@
       <div id="data-display">Score: <span id="score"></span></div>
       <p><span id="scale-notes"></span></p>
       <canvas id="canvas" width="440" height="400"></canvas>
-      <div class="options-display" id="options-display">
-        <br>
-        <br>
-        <label for="level-selector">Speed:</label>
-        <label for="slow">Slow</label>
-        <input type="radio" name="level" id="slow" value="slow">
-        <label for="fast">Fast</label>
-        <input type="radio" name="level" id="fast" value="fast">
-        <div id="enharmonic-container">
-          <label for="sharps">Sharps</label>
-          <input type="radio" name="enharmonics" id="sharps" value="sharp" checked="">
-          <label for="flats">Flats</label>
-          <input type="radio" name="enharmonics" id="flats" value="flat">
-        </div>
-        <label for="tonic-select">Tonic:</label>
-        <select id="tonic-select" name="tonic"></select>
 
-        <label for="mode-select">Mode:</label>
-        <select id="mode-select" name="mode">
-          <option value="Ionian">Ionian</option>
-          <option value="Dorian">Dorian</option>
-          <option value="Phrygian">Phrygian</option>
-          <option value="Lydian">Lydian</option>
-          <option value="Mixolydian">Mixolydian</option>
-          <option value="Aeolian">Aeolian</option>
-          <option value="Locrian">Locrian</option>
-        </select>
-        <br>
-        <br>
+      <div class="options-display" id="options-display">
+        <div class="mode-wrapper">
+          <label for="mode-selector">Mode:</label>
+          <select class="mode-select" id="mode-select" name="mode">
+            <option value="Ionian">Ionian</option>
+            <option value="Dorian">Dorian</option>
+            <option value="Phrygian">Phrygian</option>
+            <option value="Lydian">Lydian</option>
+            <option value="Mixolydian">Mixolydian</option>
+            <option value="Aeolian">Aeolian</option>
+            <option value="Locrian">Locrian</option>
+          </select>
+        </div>
+
+        <div class="tonic-wrapper">
+          <label for="tonic-select">Tonic:</label>
+          <select class="tonic-select" id="tonic-select" name="tonic"></select>
+        </div>
+
+        <div class="speed-wrapper">
+          <label class="speed-selector" for="level-selector">Speed:</label>
+          <div class="speed-selector-buttons">
+            <label for="slow">Slow</label>
+            <input type="radio" name="level" id="slow" value="slow">
+            <label for="fast">Fast</label>
+            <input type="radio" name="level" id="fast" value="fast">
+          </div>
+        </div>
+
+        <div class="enharmonic-wrapper" id="enharmonic-container">
+          <label class="enharmonic-selector" for="speed-selector">Enharmonics:</label>
+          <div class="enharmonic-selector-buttons">
+            <label for="sharps">Sharps</label>
+            <input type="radio" name="enharmonics" id="sharps" value="sharp" checked="">
+            <label for="flats">Flats</label>
+            <input type="radio" name="enharmonics" id="flats" value="flat">
+          </div>
+        </div>
+
         <button id="start-game-btn" class="start-game-btn">Start Game</button>
       </div>
     </div>
