@@ -19,18 +19,35 @@ canvas {
 }
 
 .container {
-  /* min-width: 80%; */
   min-width: 440px;
   position: relative;
+}
+
+#current-scale {
+  font-weight: bold;
+  color: orange;
 }
 #data-display {
   font-size: 24px;
   margin-top: 20px;
 }
 
+div {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
 #enharmonic-container {
-  padding: 0;
+  /* padding: 0;
+  margin: 0; */
+}
+.enharmonic-wrapper {
   margin: 0;
+  /* text-align: center; */
 }
 .game-header-wrap {
   display: flex;
@@ -57,22 +74,84 @@ input[type="radio"] {
 }
 
 label {
-  display: inline-block;
-  margin-right: 10px;
+  /* display: inline-block; */
+  /* margin-right: 10px; */
   color: black;
+  font-weight: 600;
+  font-size: 2rem;
 }
+.mode-select,
+.tonic-select {
+  width: 100px;
+}
+
+.mode-wrapper,
+.tonic-wrapper {
+  display: flex;
+  padding: 0;
+  max-width: 375x;
+  gap: 20px;
+  justify-content: center;
+}
+
+.enharmonic-selector-buttons,
+.speed-selector-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding-top: 10px;
+  font-weight: 400;
+}
+
+.enharmonic-selector-buttons input,
+.speed-selector-buttons input {
+  margin-right: 20px;
+}
+
+.enharmonic-selector-buttons label,
+.speed-selector-buttons label {
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+.enharmonic-selector,
+.speed-selector {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.enharmonic-wrapper,
+.speed-wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.speed-wrapper {
+  margin-top: 80px;
+}
+
 .options-display {
-  border: 1px solid #000;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   top: 0;
   bottom: 0;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  width: 90%;
+  /* border: 1px solid #000; */
 }
 
 .options-display.hidden {
   display: none;
+}
+
+p {
+  margin: 5px 0;
 }
 
 .play-again-btn:hover {
@@ -87,26 +166,11 @@ label {
 #score {
   font-weight: bold;
 }
+.start-game-btn {
+  margin-top: 40px;
+}
 .start-game-btn:hover {
   cursor: pointer;
-}
-
-div {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 400px;
-  margin: 0 auto;
-  margin-top: 30px;
-}
-
-p {
-  margin: 5px 0;
-}
-
-#current-scale {
-  font-weight: bold;
-  color: orange;
 }
 
 #tonic-note {
