@@ -80,6 +80,10 @@ label {
   display: none;
 }
 
+.play-again-btn:hover {
+  cursor: pointer;
+}
+
 #score {
   color: #3c3a88;
   font-size: 32px;

@@ -344,6 +344,18 @@ function endGame() {
   ctx.font = "65px Changa One";
   ctx.textAlign = "center";
   ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+  const playAgainBtn = document.createElement("button");
+  playAgainBtn.textContent = "Play Again?";
+  playAgainBtn.classList.add("play-again-btn");
+  document.body.appendChild(playAgainBtn);
+  playAgainBtn.addEventListener("click", () => {
+    optionsDisplay.classList.remove("hidden");
+    /* reset score */
+    /* remove GAME OVER */
+    /* reset food */
+    /* reset snake */
+    /* playAgainBtn disappear */
+  });
 
   // Stop game loop
   clearInterval(gameInterval);
