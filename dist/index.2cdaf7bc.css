@@ -79,7 +79,10 @@ label {
 }
 
 .mode-select, .tonic-select {
-  width: 100px;
+  width: 140px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 900;
 }
 
 .mode-wrapper, .tonic-wrapper {
@@ -109,7 +112,6 @@ label {
 
 .enharmonic-selector, .speed-selector {
   font-size: 1.4rem;
-  font-weight: 500;
 }
 
 .enharmonic-wrapper, .speed-wrapper {
@@ -156,7 +158,16 @@ p {
 }
 
 .start-game-btn {
+  color: #fff;
+  min-width: 120px;
+  width: 160px;
+  background-color: #3c3a88;
+  border: 4px solid #e3d865;
+  border-radius: 8px;
   margin-top: 40px;
+  padding: .75em 1.5em;
+  font-size: 1.1rem;
+  transition: all .1s ease-in;
 }
 
 .start-game-btn:hover {
