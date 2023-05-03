@@ -32,6 +32,7 @@ canvas {
   margin: 0;
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
 }
 
 div {
@@ -157,11 +158,9 @@ p {
 }
 
 #score {
-  font-size: 24px;
+  font-size: 28px;
 }
 
-#score {
-}
 .scale-score-wrapper {
   display: flex;
   justify-content: space-between;
@@ -198,11 +197,14 @@ p {
   color: tan;
 }
 
+.score-icon {
+  width: 24px;
+}
 #scale-notes {
-  font-weight: bold;
   color: black;
   margin: 0;
   padding: 0;
+  font-size: 1.2rem;
 }
 
 @media (min-width: 960px) {
