@@ -5,7 +5,8 @@
   "homepage": "https://greggfine.github.io/snake",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "start": "npx parcel src/index.html"
   },
   "repository": {
     "type": "git",
