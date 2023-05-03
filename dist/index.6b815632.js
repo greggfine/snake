@@ -571,6 +571,7 @@ const modeSelectElem = document.getElementById("mode-select");
 const tonicSelectElem = document.getElementById("tonic-select");
 let scaleNotesDisplay = document.getElementById("scale-notes");
 const enharmonicContainer = document.getElementById("enharmonic-container");
+const selectedScaleElem = document.getElementById("selected-scale");
 // Game Variables
 const cellSize = 34;
 const boardWidth = canvas.width / cellSize;
@@ -845,6 +846,7 @@ generateFood();
 // Event Listeners
 startGameBtn.addEventListener("click", ()=>{
     !optionsIsHidden ? optionsDisplay.classList.add("hidden") : optionsDisplay.classList.remove("hidden");
+    selectedScaleElem.textContent = `${tonicNote} ${selectedMode[0].toUpperCase() + selectedMode.slice(1)}`;
 });
 tonicSelectElem.addEventListener("change", (e)=>{
     const target = e.target;

@@ -27,6 +27,9 @@ let scaleNotesDisplay = document.getElementById(
 const enharmonicContainer = document.getElementById(
   "enharmonic-container"
 ) as HTMLDivElement;
+const selectedScaleElem = document.getElementById(
+  "selected-scale"
+) as HTMLDivElement;
 
 // Game Variables
 const cellSize = 34;
@@ -376,6 +379,10 @@ startGameBtn.addEventListener("click", () => {
   !optionsIsHidden
     ? optionsDisplay.classList.add("hidden")
     : optionsDisplay.classList.remove("hidden");
+
+  selectedScaleElem.textContent = `${tonicNote} ${
+    selectedMode[0].toUpperCase() + selectedMode.slice(1)
+  }`;
 });
 tonicSelectElem.addEventListener("change", (e: Event) => {
   const target = e.target as HTMLSelectElement;
