@@ -347,14 +347,14 @@ function endGame() {
   const playAgainBtn = document.createElement("button");
   playAgainBtn.textContent = "Play Again?";
   playAgainBtn.classList.add("play-again-btn");
-  document.body.appendChild(playAgainBtn);
+  canvas.insertAdjacentElement("afterend", playAgainBtn);
   playAgainBtn.addEventListener("click", (e: Event) => {
     optionsDisplay.classList.remove("hidden");
     score = 0;
     scoreElem.textContent = score.toString();
     const playAgainBtn = e.target as HTMLButtonElement;
-    const bodyEl = playAgainBtn.parentElement as HTMLBodyElement;
-    bodyEl.removeChild(playAgainBtn);
+    const canvasEl = playAgainBtn.parentElement as HTMLBodyElement;
+    canvasEl.removeChild(playAgainBtn);
     /* THIS IS TEMPORARY: NEED TO RESET STATE and START GAME */
     window.location.reload();
   });

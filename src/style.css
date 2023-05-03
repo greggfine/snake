@@ -11,8 +11,7 @@ body {
 }
 canvas {
   display: block;
-  margin: 0 auto;
-  margin-top: 20px;
+  margin: 20px auto 0;
   border: 1px solid black;
   border-radius: 5px;
   background-color: #f5f2d0;
@@ -176,8 +175,9 @@ p {
   margin: 0 auto;
   padding: 0;
 }
+.play-again-btn,
 .start-game-btn {
-  margin-top: 40px;
+  margin: 40px auto 0;
   background-color: #3c3a88;
   color: #fff;
   border-radius: 8px;
@@ -187,6 +187,12 @@ p {
   width: 160px;
   border: 4px solid #e3d865;
   transition: all 100ms ease-in;
+}
+
+.play-again-btn {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .start-game-btn:hover {
   cursor: pointer;

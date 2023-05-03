@@ -828,14 +828,14 @@ function endGame() {
     const playAgainBtn = document.createElement("button");
     playAgainBtn.textContent = "Play Again?";
     playAgainBtn.classList.add("play-again-btn");
-    document.body.appendChild(playAgainBtn);
+    canvas.insertAdjacentElement("afterend", playAgainBtn);
     playAgainBtn.addEventListener("click", (e)=>{
         optionsDisplay.classList.remove("hidden");
         score = 0;
         scoreElem.textContent = score.toString();
         const playAgainBtn = e.target;
-        const bodyEl = playAgainBtn.parentElement;
-        bodyEl.removeChild(playAgainBtn);
+        const canvasEl = playAgainBtn.parentElement;
+        canvasEl.removeChild(playAgainBtn);
         /* THIS IS TEMPORARY: NEED TO RESET STATE and START GAME */ window.location.reload();
     });
     /* reset score */ /* remove GAME OVER */ /* reset food */ /* reset snake */ /* playAgainBtn disappear */ // Stop game loop

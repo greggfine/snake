@@ -175,17 +175,23 @@ p {
   font-weight: 900;
 }
 
-.start-game-btn {
+.play-again-btn, .start-game-btn {
   color: #fff;
   min-width: 120px;
   width: 160px;
   background-color: #3c3a88;
   border: 4px solid #e3d865;
   border-radius: 8px;
-  margin-top: 40px;
+  margin: 40px auto 0;
   padding: .75em 1.5em;
   font-size: 1.1rem;
   transition: all .1s ease-in;
+}
+
+.play-again-btn {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .start-game-btn:hover {
