@@ -14,8 +14,16 @@
       <h1 id="game-heading">MODAL SNAKE</h1>
     </div>
     <div class="container">
-      <div id="data-display">Score: <span id="score"></span></div>
-      <p><span id="scale-notes"></span></p>
+      <div class="selected-scale">C Ionian</div>
+
+      <div class="scale-score-wrapper">
+        <div id="scale-notes" class="scale-notes"></div>
+        <div id="data-display">
+          <img class="score-icon" src="/score-black.7b4a7d30.svg" alt="score">
+          <span id="score">0</span>
+        </div>
+      </div>
+
       <canvas id="canvas" width="440" height="400"></canvas>
 
       <div class="options-display" id="options-display">
