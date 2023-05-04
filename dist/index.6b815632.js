@@ -847,8 +847,7 @@ startGameBtn.addEventListener("click", ()=>{
 tonicSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
     tonicNote = target.value;
-    //   Slice tonicNote name after slash if it has enharmonic
-    if (tonicNote.length > 1) tonicNote = tonicNote.slice(3);
+    if (tonicNote.length > 1 && useSharps) tonicNote = tonicNote.slice(0, 2);
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));
@@ -904,6 +903,7 @@ enharmonicContainer.addEventListener("change", (e)=>{
     const target = e.target;
     const flatOrSharp = target.value;
     useSharps = flatOrSharp === "flat" ? false : true;
+    if (tonicNote.length > 1) tonicNote = tonicNoteLookup[tonicNote];
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));

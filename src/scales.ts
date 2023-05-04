@@ -98,3 +98,16 @@ const tonicNotes = [
   "A#/Bb",
   "B",
 ];
+
+const tonicNoteLookup = {
+  "C#": "Db",
+  Db: "C#",
+  "D#": "Eb",
+  Eb: "D#",
+  "F#": "Gb",
+  Gb: "F#",
+  "G#": "Ab",
+  Ab: "G#",
+  "A#": "Bb",
+  Bb: "A#",
+};
