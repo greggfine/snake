@@ -605,7 +605,6 @@ function generateScaleNotes() {
     }, "").trim();
     scaleNotesDisplay.textContent = scaleNotes;
 }
-// let { mainNotes, complementaryNotes } = getScaleNotes(0, ionian);
 // Audio Variables
 const audioCTX = new AudioContext();
 const correctAnswerSound = new Audio("audio/correctAnswer.wav");
@@ -622,6 +621,7 @@ const sampler = new _tone.Sampler({
 /* ============================================== */ function init() {
     generateTonicNotes();
     generateScaleNotes();
+    generateFood();
 }
 function startGame() {
     //   canvas.style.cursor = "none";
@@ -662,20 +662,15 @@ function startGame() {
         `${mainNotes[4].note}4`
     ]);
 }
-function generateTonicNotes(sharpsOrFlats = useSharps ? tonicNotesSharps : tonicNotesFlats) {
+function generateTonicNotes() {
     const selectedOption = tonicSelectElem.selectedOptions[0];
     let selectedIndex;
     if (selectedOption) selectedIndex = selectedOption.index; // Store the original index of the selected option
-    while(tonicSelectElem.firstChild)tonicSelectElem.removeChild(tonicSelectElem.firstChild);
-    sharpsOrFlats.forEach((note, index)=>{
-        if (selectedOption && note === selectedOption.value) // If the current note is the same as the selected option, skip adding a new option
-        selectedIndex = index; // Update the selected index to match the index of the selected option
-        else {
-            const optionElem = document.createElement("option");
-            optionElem.setAttribute("value", note);
-            optionElem.textContent = note;
-            tonicSelectElem.appendChild(optionElem);
-        }
+    tonicNotes.forEach((note)=>{
+        const optionElem = document.createElement("option");
+        optionElem.setAttribute("value", note);
+        optionElem.textContent = note;
+        tonicSelectElem.appendChild(optionElem);
     });
     if (selectedOption && !tonicSelectElem.contains(selectedOption)) tonicSelectElem.add(selectedOption, selectedIndex);
 }
@@ -842,7 +837,7 @@ function endGame() {
     /* reset score */ /* remove GAME OVER */ /* reset food */ /* reset snake */ /* playAgainBtn disappear */ // Stop game loop
     clearInterval(gameInterval);
 }
-generateFood();
+// generateFood();
 // Event Listeners
 startGameBtn.addEventListener("click", ()=>{
     !optionsIsHidden ? optionsDisplay.classList.add("hidden") : optionsDisplay.classList.remove("hidden");
@@ -851,10 +846,13 @@ startGameBtn.addEventListener("click", ()=>{
 tonicSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
     tonicNote = target.value;
+    if (tonicNote.length > 1 && useSharps) tonicNote = tonicNote.slice(0, 2);
+    else if (tonicNote.length > 1 && !useSharps) tonicNote = tonicNote.slice(3);
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));
     generateScaleNotes();
+    generateFood();
 });
 modeSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
@@ -863,6 +861,7 @@ modeSelectElem.addEventListener("change", (e)=>{
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));
     generateScaleNotes();
+    generateFood();
 });
 slowRadio.addEventListener("change", (e)=>{
     const target = e.target;
@@ -872,21 +871,6 @@ fastRadio.addEventListener("change", (e)=>{
     const target = e.target;
     level = target.value;
 });
-// document.addEventListener(
-//   "keydown",
-//   function (event) {
-//     if (
-//       event.key === "ArrowUp" ||
-//       event.key === "ArrowDown" ||
-//       event.key === "ArrowLeft" ||
-//       event.key === "ArrowRight"
-//     ) {
-//       event.preventDefault();
-//       startGame();
-//     }
-//   },
-//   { once: true }
-// );
 function handleStartGame(event) {
     if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight") {
         event.preventDefault();
@@ -920,8 +904,9 @@ document.addEventListener("keydown", handleStartGame, {
 enharmonicContainer.addEventListener("change", (e)=>{
     const target = e.target;
     const flatOrSharp = target.value;
-    flatOrSharp === "flat" ? generateTonicNotes(tonicNotesFlats) : generateTonicNotes(tonicNotesSharps);
     useSharps = flatOrSharp === "flat" ? false : true;
+    if (tonicNote.length > 1) //@ts-ignore
+    tonicNote = tonicNoteLookup[tonicNote];
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));
