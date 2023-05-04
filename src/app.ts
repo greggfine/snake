@@ -133,28 +133,20 @@ function startGame() {
   ]);
 }
 
-function generateTonicNotes(
-  sharpsOrFlats = useSharps ? tonicNotesSharps : tonicNotesFlats
-) {
+function generateTonicNotes() {
   const selectedOption = tonicSelectElem.selectedOptions[0];
+
   let selectedIndex;
   if (selectedOption) {
     selectedIndex = selectedOption.index; // Store the original index of the selected option
   }
 
-  while (tonicSelectElem.firstChild) {
-    tonicSelectElem.removeChild(tonicSelectElem.firstChild);
-  }
-  sharpsOrFlats.forEach((note, index) => {
-    if (selectedOption && note === selectedOption.value) {
-      // If the current note is the same as the selected option, skip adding a new option
-      selectedIndex = index; // Update the selected index to match the index of the selected option
-    } else {
-      const optionElem = document.createElement("option");
-      optionElem.setAttribute("value", note);
-      optionElem.textContent = note;
-      tonicSelectElem.appendChild(optionElem);
-    }
+  tonicNotes.forEach((note) => {
+    const optionElem = document.createElement("option");
+    optionElem.setAttribute("value", note);
+    optionElem.textContent = note;
+    tonicSelectElem.appendChild(optionElem);
+    // }
   });
 
   if (selectedOption && !tonicSelectElem.contains(selectedOption)) {
@@ -387,6 +379,10 @@ startGameBtn.addEventListener("click", () => {
 tonicSelectElem.addEventListener("change", (e: Event) => {
   const target = e.target as HTMLSelectElement;
   tonicNote = target.value;
+  //   Slice tonicNote name after slash if it has enharmonic
+  if (tonicNote.length > 1) {
+    tonicNote = tonicNote.slice(3);
+  }
   ({ mainNotes, complementaryNotes } = getScaleNotes(
     //@ts-ignore
     tonics[tonicNote],
@@ -394,6 +390,7 @@ tonicSelectElem.addEventListener("change", (e: Event) => {
     scales[selectedMode],
     useSharps
   ));
+
   generateScaleNotes();
 });
 
@@ -419,22 +416,6 @@ fastRadio.addEventListener("change", (e: Event) => {
   const target = e.target as HTMLInputElement;
   level = target.value;
 });
-
-// document.addEventListener(
-//   "keydown",
-//   function (event) {
-//     if (
-//       event.key === "ArrowUp" ||
-//       event.key === "ArrowDown" ||
-//       event.key === "ArrowLeft" ||
-//       event.key === "ArrowRight"
-//     ) {
-//       event.preventDefault();
-//       startGame();
-//     }
-//   },
-//   { once: true }
-// );
 
 function handleStartGame(event: KeyboardEvent) {
   if (
@@ -479,9 +460,6 @@ document.addEventListener("keydown", handleStartGame, { once: true });
 enharmonicContainer.addEventListener("change", (e: Event) => {
   const target = e.target as HTMLInputElement;
   const flatOrSharp = target.value;
-  flatOrSharp === "flat"
-    ? generateTonicNotes(tonicNotesFlats)
-    : generateTonicNotes(tonicNotesSharps);
   useSharps = flatOrSharp === "flat" ? false : true;
   ({ mainNotes, complementaryNotes } = getScaleNotes(
     //@ts-ignore
