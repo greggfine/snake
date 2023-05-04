@@ -605,7 +605,6 @@ function generateScaleNotes() {
     }, "").trim();
     scaleNotesDisplay.textContent = scaleNotes;
 }
-// let { mainNotes, complementaryNotes } = getScaleNotes(0, ionian);
 // Audio Variables
 const audioCTX = new AudioContext();
 const correctAnswerSound = new Audio("audio/correctAnswer.wav");
@@ -622,6 +621,7 @@ const sampler = new _tone.Sampler({
 /* ============================================== */ function init() {
     generateTonicNotes();
     generateScaleNotes();
+    generateFood();
 }
 function startGame() {
     //   canvas.style.cursor = "none";
@@ -671,7 +671,6 @@ function generateTonicNotes() {
         optionElem.setAttribute("value", note);
         optionElem.textContent = note;
         tonicSelectElem.appendChild(optionElem);
-    // }
     });
     if (selectedOption && !tonicSelectElem.contains(selectedOption)) tonicSelectElem.add(selectedOption, selectedIndex);
 }
@@ -838,7 +837,7 @@ function endGame() {
     /* reset score */ /* remove GAME OVER */ /* reset food */ /* reset snake */ /* playAgainBtn disappear */ // Stop game loop
     clearInterval(gameInterval);
 }
-generateFood();
+// generateFood();
 // Event Listeners
 startGameBtn.addEventListener("click", ()=>{
     !optionsIsHidden ? optionsDisplay.classList.add("hidden") : optionsDisplay.classList.remove("hidden");
@@ -848,10 +847,12 @@ tonicSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
     tonicNote = target.value;
     if (tonicNote.length > 1 && useSharps) tonicNote = tonicNote.slice(0, 2);
+    else if (tonicNote.length > 1 && !useSharps) tonicNote = tonicNote.slice(3);
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));
     generateScaleNotes();
+    generateFood();
 });
 modeSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
@@ -860,6 +861,7 @@ modeSelectElem.addEventListener("change", (e)=>{
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));
     generateScaleNotes();
+    generateFood();
 });
 slowRadio.addEventListener("change", (e)=>{
     const target = e.target;
@@ -903,7 +905,8 @@ enharmonicContainer.addEventListener("change", (e)=>{
     const target = e.target;
     const flatOrSharp = target.value;
     useSharps = flatOrSharp === "flat" ? false : true;
-    if (tonicNote.length > 1) tonicNote = tonicNoteLookup[tonicNote];
+    if (tonicNote.length > 1) //@ts-ignore
+    tonicNote = tonicNoteLookup[tonicNote];
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));

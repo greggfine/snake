@@ -63,8 +63,6 @@ function generateScaleNotes() {
   scaleNotesDisplay.textContent = scaleNotes;
 }
 
-// let { mainNotes, complementaryNotes } = getScaleNotes(0, ionian);
-
 // Audio Variables
 const audioCTX = new AudioContext();
 const correctAnswerSound = new Audio("audio/correctAnswer.wav");
@@ -84,6 +82,8 @@ const sampler = new Tone.Sampler({
 function init() {
   generateTonicNotes();
   generateScaleNotes();
+
+  generateFood();
 }
 
 function startGame() {
@@ -146,7 +146,6 @@ function generateTonicNotes() {
     optionElem.setAttribute("value", note);
     optionElem.textContent = note;
     tonicSelectElem.appendChild(optionElem);
-    // }
   });
 
   if (selectedOption && !tonicSelectElem.contains(selectedOption)) {
@@ -283,6 +282,7 @@ function drawFood() {
   ctx.textBaseline = "middle";
   const textX = (food.x + 0.5) * cellSize;
   const textY = (food.y + 0.53) * cellSize;
+
   ctx.fillText(food.noteName, textX, textY);
 }
 
@@ -317,6 +317,7 @@ function generateFood() {
       (segment) => segment.x === newPosition.x && segment.y === newPosition.y
     )
   );
+
   food = {
     x: newPosition.x,
     y: newPosition.y,
@@ -364,7 +365,7 @@ function endGame() {
   clearInterval(gameInterval);
 }
 
-generateFood();
+// generateFood();
 
 // Event Listeners
 startGameBtn.addEventListener("click", () => {
@@ -382,6 +383,8 @@ tonicSelectElem.addEventListener("change", (e: Event) => {
 
   if (tonicNote.length > 1 && useSharps) {
     tonicNote = tonicNote.slice(0, 2);
+  } else if (tonicNote.length > 1 && !useSharps) {
+    tonicNote = tonicNote.slice(3);
   }
   ({ mainNotes, complementaryNotes } = getScaleNotes(
     //@ts-ignore
@@ -392,6 +395,7 @@ tonicSelectElem.addEventListener("change", (e: Event) => {
   ));
 
   generateScaleNotes();
+  generateFood();
 });
 
 modeSelectElem.addEventListener("change", (e: Event) => {
@@ -405,6 +409,7 @@ modeSelectElem.addEventListener("change", (e: Event) => {
     useSharps
   ));
   generateScaleNotes();
+  generateFood();
 });
 
 slowRadio.addEventListener("change", (e: Event) => {
@@ -462,8 +467,10 @@ enharmonicContainer.addEventListener("change", (e: Event) => {
   const flatOrSharp = target.value;
   useSharps = flatOrSharp === "flat" ? false : true;
   if (tonicNote.length > 1) {
+    //@ts-ignore
     tonicNote = tonicNoteLookup[tonicNote];
   }
+
   ({ mainNotes, complementaryNotes } = getScaleNotes(
     //@ts-ignore
     tonics[tonicNote],

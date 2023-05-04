@@ -32,10 +32,12 @@ function getScaleNotes(tonicNote: number, scale: Scale, useSharps = false) {
     ? ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     : ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 
-  const mainNotes = notes.map((note) => ({
-    note: noteNames[note],
-    frequency: scale.notes[note].frequency,
-  }));
+  const mainNotes = notes.map((note) => {
+    return {
+      note: noteNames[note],
+      frequency: scale.notes[note].frequency,
+    };
+  });
 
   const allNoteNames = noteNames.slice(0, 12); // Get first 12 notes
   const allNotes = allNoteNames.map((noteName) => ({

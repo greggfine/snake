@@ -87,10 +87,12 @@ function getScaleNotes(tonicNote, scale, useSharps = false) {
         "Bb",
         "B"
     ];
-    const mainNotes = notes.map((note)=>({
+    const mainNotes = notes.map((note)=>{
+        return {
             note: noteNames[note],
             frequency: scale.notes[note].frequency
-        }));
+        };
+    });
     const allNoteNames = noteNames.slice(0, 12); // Get first 12 notes
     const allNotes = allNoteNames.map((noteName)=>({
             note: noteName,
