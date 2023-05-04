@@ -82,7 +82,6 @@ const sampler = new Tone.Sampler({
 function init() {
   generateTonicNotes();
   generateScaleNotes();
-
   generateFood();
 }
 
@@ -306,6 +305,7 @@ function generateRandNote(goodNotes: Note[], badNotes: Note[]) {
 }
 function generateFood() {
   let randNote = generateRandNote(mainNotes, complementaryNotes);
+
   let newPosition = { x: 0, y: 0 };
   do {
     newPosition = {
