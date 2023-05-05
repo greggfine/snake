@@ -96,40 +96,26 @@ function startGame() {
     volume: -15,
     oscillator: {
       type: "fatsawtooth",
-      count: 3,
-      spread: 40,
+      count: 2,
+      spread: 10,
     },
     envelope: {
-      attack: 0.5,
+      attack: 1,
       decay: 0.3,
       sustain: 0.4,
       release: 1,
     },
   });
 
-  const gain = new Tone.Gain();
+  const filter = new Tone.Filter(1200, "lowpass").toDestination();
 
-  const filter = new Tone.Filter({
-    type: "lowpass",
-    frequency: 1200,
-    rolloff: -12,
-    Q: 4,
-  });
-
-  //   lfo.connect(filter.frequency);
-
-  const envelope = new Tone.AmplitudeEnvelope({
-    attack: 3, // set a slow attack time
-    decay: 1,
-    sustain: 0.5,
-    release: 3,
-  });
-
-  synth.connect(filter).connect(envelope).toDestination();
+  //   synth.toDestination();
+  synth.connect(filter);
   synth.triggerAttack([
-    `${mainNotes[0].note}4`,
+    `${mainNotes[0].note}3`,
     `${mainNotes[2].note}4`,
-    `${mainNotes[4].note}4`,
+    `${mainNotes[4].note}3`,
+    `${mainNotes[6].note}4`,
   ]);
 }
 
@@ -332,9 +318,10 @@ function generateFood() {
 function endGame() {
   canvas.style.cursor = "initial";
   synth.triggerRelease([
-    `${mainNotes[0].note}4`,
+    `${mainNotes[0].note}3`,
     `${mainNotes[2].note}4`,
-    `${mainNotes[4].note}4`,
+    `${mainNotes[4].note}3`,
+    `${mainNotes[6].note}4`,
   ]);
   // Display game over message and stop game loop
   clearInterval(gameInterval);
