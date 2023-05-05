@@ -599,6 +599,7 @@ let { mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
 tonics[tonicNote], //@ts-ignore
 scales[selectedMode]);
 let useSharps = true;
+let flatOrSharp = "sharp";
 function generateScaleNotes() {
     let scaleNotes = mainNotes.reduce((accum, curr)=>{
         return accum + " " + curr.note;
@@ -678,13 +679,14 @@ function checkFoodCollision() {
     // Check if snake head is in the same position as the food
     if (snake[0].x === food.x && snake[0].y === food.y) {
         const noteName = food.noteName;
-        _tone.loaded().then(()=>{
-            sampler.triggerAttackRelease(`${noteName}4`, 0.5);
-        });
         if (mainNotes.find((obj)=>{
             return obj.note === food.noteName;
-        })) updateScore("increment");
-        else {
+        })) {
+            updateScore("increment");
+            _tone.loaded().then(()=>{
+                sampler.triggerAttackRelease(`${noteName}4`, 0.5);
+            });
+        } else {
             const noiseSynth = new _tone.NoiseSynth().toDestination();
             noiseSynth.triggerAttackRelease("4n");
             if (score > 0) updateScore("decrement");
@@ -846,6 +848,7 @@ startGameBtn.addEventListener("click", ()=>{
 tonicSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
     tonicNote = target.value;
+    useSharps = flatOrSharp === "flat" ? false : true;
     if (tonicNote.length > 1 && useSharps) tonicNote = tonicNote.slice(0, 2);
     else if (tonicNote.length > 1 && !useSharps) tonicNote = tonicNote.slice(3);
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
@@ -857,6 +860,7 @@ tonicSelectElem.addEventListener("change", (e)=>{
 modeSelectElem.addEventListener("change", (e)=>{
     const target = e.target;
     selectedMode = target.value.toLowerCase();
+    useSharps = flatOrSharp === "flat" ? false : true;
     ({ mainNotes , complementaryNotes  } = getScaleNotes(//@ts-ignore
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));
@@ -903,7 +907,7 @@ document.addEventListener("keydown", handleStartGame, {
 });
 enharmonicContainer.addEventListener("change", (e)=>{
     const target = e.target;
-    const flatOrSharp = target.value;
+    flatOrSharp = target.value;
     useSharps = flatOrSharp === "flat" ? false : true;
     if (tonicNote.length > 1) //@ts-ignore
     tonicNote = tonicNoteLookup[tonicNote];
@@ -911,6 +915,7 @@ enharmonicContainer.addEventListener("change", (e)=>{
     tonics[tonicNote], //@ts-ignore
     scales[selectedMode], useSharps));
     generateScaleNotes();
+    generateFood();
 });
 init();
 
