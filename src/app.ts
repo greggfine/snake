@@ -53,6 +53,7 @@ let { mainNotes, complementaryNotes } = getScaleNotes(
   scales[selectedMode]
 );
 let useSharps = true;
+let flatOrSharp = "sharp";
 
 function generateScaleNotes() {
   let scaleNotes = mainNotes
@@ -301,6 +302,7 @@ function generateRandNote(goodNotes: Note[], badNotes: Note[]) {
   const goodAndBadNotes = [goodNote, badNote];
   const randNote =
     goodAndBadNotes[Math.floor(Math.random() * goodAndBadNotes.length)];
+
   return randNote;
 }
 function generateFood() {
@@ -381,6 +383,7 @@ tonicSelectElem.addEventListener("change", (e: Event) => {
   const target = e.target as HTMLSelectElement;
   tonicNote = target.value;
 
+  useSharps = flatOrSharp === "flat" ? false : true;
   if (tonicNote.length > 1 && useSharps) {
     tonicNote = tonicNote.slice(0, 2);
   } else if (tonicNote.length > 1 && !useSharps) {
@@ -401,6 +404,7 @@ tonicSelectElem.addEventListener("change", (e: Event) => {
 modeSelectElem.addEventListener("change", (e: Event) => {
   const target = e.target as HTMLSelectElement;
   selectedMode = target.value.toLowerCase();
+  useSharps = flatOrSharp === "flat" ? false : true;
   ({ mainNotes, complementaryNotes } = getScaleNotes(
     //@ts-ignore
     tonics[tonicNote],
@@ -464,8 +468,9 @@ document.addEventListener("keydown", handleStartGame, { once: true });
 
 enharmonicContainer.addEventListener("change", (e: Event) => {
   const target = e.target as HTMLInputElement;
-  const flatOrSharp = target.value;
+  flatOrSharp = target.value;
   useSharps = flatOrSharp === "flat" ? false : true;
+
   if (tonicNote.length > 1) {
     //@ts-ignore
     tonicNote = tonicNoteLookup[tonicNote];
@@ -479,6 +484,7 @@ enharmonicContainer.addEventListener("change", (e: Event) => {
     useSharps
   ));
   generateScaleNotes();
+  generateFood();
 });
 
 init();
