@@ -678,13 +678,14 @@ function checkFoodCollision() {
     // Check if snake head is in the same position as the food
     if (snake[0].x === food.x && snake[0].y === food.y) {
         const noteName = food.noteName;
-        _tone.loaded().then(()=>{
-            sampler.triggerAttackRelease(`${noteName}4`, 0.5);
-        });
         if (mainNotes.find((obj)=>{
             return obj.note === food.noteName;
-        })) updateScore("increment");
-        else {
+        })) {
+            updateScore("increment");
+            _tone.loaded().then(()=>{
+                sampler.triggerAttackRelease(`${noteName}4`, 0.5);
+            });
+        } else {
             const noiseSynth = new _tone.NoiseSynth().toDestination();
             noiseSynth.triggerAttackRelease("4n");
             if (score > 0) updateScore("decrement");
